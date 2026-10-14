@@ -1,0 +1,42 @@
+{
+ "gpu": "NVIDIA GeForce RTX 4090",
+ "torch": "2.8.0+cu126",
+ "frame": "8040#1200",
+ "frame_size": [
+  2160,
+  3840
+ ],
+ "runs": 200,
+ "detectors": {
+  "rfdetr_base_legacy": {
+   "median_ms": 40.51699999763514,
+   "p95_ms": 47.92445000020962,
+   "fps_at_median": 24.680998101003706
+  },
+  "rfdetr_base_random": {
+   "median_ms": 40.51169999729609,
+   "p95_ms": 42.125145001045894,
+   "fps_at_median": 24.684227027420324
+  },
+  "yolo11n_legacy": {
+   "median_ms": 5.498950005858205,
+   "p95_ms": 5.765120000796742,
+   "fps_at_median": 181.8528989961117
+  },
+  "yolo11n_random": {
+   "median_ms": 20.2486999987741,
+   "p95_ms": 23.167574999752105,
+   "fps_at_median": 49.38588650434557
+  },
+  "yolo11s_random": {
+   "median_ms": 32.247999999526655,
+   "p95_ms": 35.53680999903008,
+   "fps_at_median": 31.009675019060975
+  },
+  "yolo11m_random": {
+   "median_ms": 23.00285000092117,
+   "p95_ms": 25.781605003430737,
+   "fps_at_median": 43.472874011696554
+  }
+ }
+}

@@ -14,6 +14,31 @@ Taşkınların Önlenmesinde Geçirgen Mahmuzların Etkilerinin İncelenmesi").
 
 ![Annotated frame from run 1az214](1az214%20annoted.jpg)
 
+## Current results
+
+Counting at the inlet line L1, nominal processing settings fixed a priori, 15 runs that
+are independent of the detector training data (N = 10–200 pieces per run):
+
+| Detector (training data) | ΣC/ΣN | Bias | MAPE (95 % CI) | Limits of agreement | AP@[.5:.95] held-out test | Latency, 4K frame |
+| --- | --- | --- | --- | --- | --- | --- |
+| RF-DETR Base (original, 20 epochs) | 1.006 | +1.1 % | 3.5 % (1.8–5.3) | −8.6 / +10.8 % | 0.677 (random split) | 40.5 ms |
+| RF-DETR Base (retrained, 60 epochs) | 0.988 | −1.0 % | 3.4 % (2.0–5.0) | −10.0 / +8.0 % | 0.688 (random split) | 40.5 ms |
+| RF-DETR Base (blocked split) | 1.003 | +0.5 % | 3.6 % (1.9–5.4) | −9.5 / +10.6 % | 0.627 (blocked split) | – |
+| YOLO11n (same images) | 0.996 | −0.8 % | 3.2 % (2.0–4.6) | −9.0 / +7.4 % | 0.693 (random split) | 20.2 ms |
+| YOLO11s (same images) | 0.980 | −2.0 % | 2.7 % (1.4–4.1) | −8.4 / +4.4 % | 0.699 (random split) | 32.2 ms |
+| YOLO11m (same images) | 0.982 | −1.9 % | 2.3 % (1.1–3.7) | −7.8 / +4.1 % | 0.702 (random split) | 23.0 ms |
+| YOLO11m (blocked split) | 0.991 | −1.7 % | 2.4 % (1.1–3.9) | −8.4 / +5.0 % | 0.630 (blocked split) | – |
+| YOLO11n (original, other dataset) | 0.779 | −16.4 % | 17.8 % (12.6–22.6) | −40.9 / +8.0 % | 0.378 (random split) | 5.5 ms |
+| Original counting rule, RF-DETR (original) | 0.504 | −50.3 % | 50.3 % | – | – | – |
+
+* With the same training images, RF-DETR and YOLO11 count equally well: no pairwise
+  difference is significant (Wilcoxon, p > 0.17). The original YOLO11n falls behind
+  because of its training data, not its architecture.
+* The corrections to the counting code matter more than the detector choice.
+* Repeated GPU extraction is bit-identical; tuning the settings by nested
+  leave-one-run-out does not improve on the a-priori settings.
+* Latency: batch 1, FP32, RTX 4090, including the resize of the 3840 × 2160 frame.
+
 ## Measurement problem
 
 Wooden dowels are released upstream of a permeable spur dike in a laboratory flume and

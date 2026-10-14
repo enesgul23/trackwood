@@ -27,12 +27,24 @@ MM = 1 / 25.4
 RES = config.REPO / "results"
 FIG = config.REPO / "figures"
 TRAINING_VIDEO = "20040"
-LABEL = {"rfdetr_base_legacy": "RF-DETR", "yolo11n_legacy": "YOLO11n",
+LABEL = {"rfdetr_base_legacy": "RF-DETR (original)", "yolo11n_legacy": "YOLO11n (original)",
          "rfdetr_base_random": "RF-DETR (retrained)", "rfdetr_base_blocked": "RF-DETR (blocked split)",
          "yolo11n_random": "YOLO11n (same data)", "yolo11s_random": "YOLO11s (same data)",
          "yolo11m_random": "YOLO11m (same data)", "yolo11m_blocked": "YOLO11m (blocked split)"}
-COLOR = {"rfdetr": "#1f5fbf", "yolo": "#d9822b"}
-MARKER = {"rfdetr": "o", "yolo": "s"}
+STYLE = {  # detector -> (colour, marker)
+    "rfdetr_base_legacy": ("#1f5fbf", "o"), "rfdetr_base_random": ("#6a3d9a", "D"),
+    "rfdetr_base_blocked": ("#56b4e9", "v"), "yolo11n_legacy": ("#d9822b", "s"),
+    "yolo11n_random": ("#e6b422", "^"), "yolo11s_random": ("#b15928", "P"),
+    "yolo11m_random": ("#2a9d4b", "X"), "yolo11m_blocked": ("#8fd18f", "<"),
+}
+
+
+def col(d: str) -> str:
+    return STYLE.get(d, ("0.3", "o"))[0]
+
+
+def mk(d: str) -> str:
+    return STYLE.get(d, ("0.3", "o"))[1]
 
 plt.rcParams.update({
     "font.family": "DejaVu Sans", "font.size": 8, "axes.labelsize": 8, "axes.titlesize": 8,
@@ -80,9 +92,9 @@ def fig_counts_vs_n(rows, detectors):
         C = np.array([int(r["L1_fixed_confirmed"]) for r in rows[d]])
         legacy = np.array([int(r["L1_legacy"]) for r in rows[d]])
         train = np.array([r["video"] == TRAINING_VIDEO for r in rows[d]])
-        ax.scatter(N, legacy, s=10, marker=MARKER[fam], facecolor="none", edgecolor=COLOR[fam], alpha=0.5,
+        ax.scatter(N, legacy, s=10, marker=mk(d), facecolor="none", edgecolor=col(d), alpha=0.5,
                    lw=0.6, zorder=2, label=f"{LABEL.get(d, d)}, original counting rule")
-        ax.scatter(N, C, s=16, marker=MARKER[fam], color=COLOR[fam], zorder=3,
+        ax.scatter(N, C, s=16, marker=mk(d), color=col(d), zorder=3,
                    label=f"{LABEL.get(d, d)}, corrected pipeline")
         ax.scatter(N[train], C[train], s=46, marker="o", facecolor="none", edgecolor="k", lw=0.6, zorder=4)
         if d == detectors[0] and train.any():
@@ -106,14 +118,14 @@ def fig_bland_altman(rows, detectors):
         rel = (C - N) / N * 100
         m, s = rel[indep].mean(), rel[indep].std(ddof=1)
         ax.axhline(0, color="0.6", lw=0.6)
-        ax.axhline(m, color=COLOR[fam], lw=1.0)
+        ax.axhline(m, color=col(d), lw=1.0)
         for y in (m - 1.96 * s, m + 1.96 * s):
-            ax.axhline(y, color=COLOR[fam], lw=0.8, ls="--")
-        ax.scatter(N[indep], rel[indep], s=16, marker=MARKER[fam], color=COLOR[fam], zorder=3)
-        ax.scatter(N[~indep], rel[~indep], s=16, marker=MARKER[fam], facecolor="white", edgecolor=COLOR[fam], zorder=3)
-        ax.text(1.0, m, f" mean {m:+.1f} %", transform=ax.get_yaxis_transform(), va="center", fontsize=6.5, color=COLOR[fam])
-        ax.text(1.0, m + 1.96 * s, f" +1.96 s {m + 1.96 * s:+.1f} %", transform=ax.get_yaxis_transform(), va="center", fontsize=6.5, color=COLOR[fam])
-        ax.text(1.0, m - 1.96 * s, f" -1.96 s {m - 1.96 * s:+.1f} %", transform=ax.get_yaxis_transform(), va="center", fontsize=6.5, color=COLOR[fam])
+            ax.axhline(y, color=col(d), lw=0.8, ls="--")
+        ax.scatter(N[indep], rel[indep], s=16, marker=mk(d), color=col(d), zorder=3)
+        ax.scatter(N[~indep], rel[~indep], s=16, marker=mk(d), facecolor="white", edgecolor=col(d), zorder=3)
+        ax.text(1.0, m, f" mean {m:+.1f} %", transform=ax.get_yaxis_transform(), va="center", fontsize=6.5, color=col(d))
+        ax.text(1.0, m + 1.96 * s, f" +1.96 s {m + 1.96 * s:+.1f} %", transform=ax.get_yaxis_transform(), va="center", fontsize=6.5, color=col(d))
+        ax.text(1.0, m - 1.96 * s, f" -1.96 s {m - 1.96 * s:+.1f} %", transform=ax.get_yaxis_transform(), va="center", fontsize=6.5, color=col(d))
         ax.set(xscale="log", xlabel="Pieces released, $N$", title=LABEL.get(d, d))
         ax.set_xticks([10, 20, 50, 100, 200])
         ax.set_xticklabels(["10", "20", "50", "100", "200"])
@@ -142,11 +154,11 @@ def fig_sensitivity(detectors):
                     v = np.nan if r["value"] in ("", "None") else float(r["value"])
                     pts[v] = float(r["eta_total"])
             xs = sorted(x for x in pts if not np.isnan(x))
-            ax.plot(xs, [pts[x] for x in xs], marker=MARKER[fam], ms=3, color=COLOR[fam], label=LABEL.get(d, d))
+            ax.plot(xs, [pts[x] for x in xs], marker=mk(d), ms=3, color=col(d), label=LABEL.get(d, d))
             ax.scatter([float(nominal[p])], [pts[float(nominal[p])]], s=30, facecolor="none", edgecolor="k", lw=0.7, zorder=4)
             nan_keys = [x for x in pts if np.isnan(x)]
             if nan_keys:
-                ax.scatter([max(xs) + 0.1], [pts[nan_keys[0]]], marker="x", color=COLOR[fam], s=14)
+                ax.scatter([max(xs) + 0.1], [pts[nan_keys[0]]], marker="x", color=col(d), s=14)
         ax.axhline(1.0, color="0.6", lw=0.6, ls="--")
         ax.set_xlabel(lab)
         if p == "min_hits":
@@ -172,7 +184,7 @@ def fig_line_profile(detectors):
             by[float(r["line_pct"])][0] += int(r["count"])
             by[float(r["line_pct"])][1] += int(r["N"])
         xs = sorted(by)
-        ax.plot(xs, [by[x][0] / by[x][1] for x in xs], marker=MARKER[fam], ms=3, color=COLOR[fam], label=LABEL.get(d, d))
+        ax.plot(xs, [by[x][0] / by[x][1] for x in xs], marker=mk(d), ms=3, color=col(d), label=LABEL.get(d, d))
     for x, lab in ((20, "L1"), (80, "L2")):
         ax.axvline(x, color="0.3", lw=0.6, ls=":")
         ax.text(x, 1.27, lab, ha="center", fontsize=6.5)
@@ -191,7 +203,7 @@ def fig_trapping(detectors):
         sel = [r for r in rows if r["detector"] == d]
         N = np.array([int(r["N"]) for r in sel])
         R = np.array([float(r["R"]) for r in sel])
-        ax.scatter(N * (0.97 if fam == "rfdetr" else 1.03), R, s=16, marker=MARKER[fam], color=COLOR[fam], label=LABEL.get(d, d))
+        ax.scatter(N * (0.97 if fam == "rfdetr" else 1.03), R, s=16, marker=mk(d), color=col(d), label=LABEL.get(d, d))
     ax.set(xscale="log", xlabel="Pieces released, $N$", ylabel=r"Trapping efficiency $R = 1 - C_{L2}/C_{L1}$", ylim=(0, 1))
     ax.set_xticks([10, 20, 30, 50, 80, 120, 150, 200])
     ax.set_xticklabels(["10", "20", "30", "50", "80", "120", "150", "200"])
@@ -199,17 +211,73 @@ def fig_trapping(detectors):
     save(fig, "fig_trapping_efficiency")
 
 
+def fig_forest(detectors):
+    """Bias with bootstrap 95 % CI and Bland-Altman limits for every detector."""
+    key = json.loads((RES / "summary.json").read_text(encoding="utf-8"))["nominal_key"]
+    acc = {r["detector"]: r for r in read_csv("counting_accuracy.csv")
+           if r["config_key"] == key and r["subset"] == "indep15" and r["estimator"] == "L1_fixed_confirmed"}
+    dets = [d for d in detectors if d in acc]
+    fig, ax = plt.subplots(figsize=(140 * MM, (18 + 9 * len(dets)) * MM))
+    for i, d in enumerate(dets[::-1]):
+        r = acc[d]
+        lo, hi = json.loads(r["mpe_pct_ci95"])
+        ax.plot([float(r["ba_loa_low_pct"]), float(r["ba_loa_high_pct"])], [i, i], color=col(d), lw=0.8, alpha=0.5)
+        ax.plot([lo, hi], [i, i], color=col(d), lw=2.4, solid_capstyle="butt")
+        ax.scatter([float(r["mpe_pct"])], [i], marker=mk(d), color=col(d), s=24, zorder=3, edgecolor="white", lw=0.4)
+        ax.text(1.02, i, f"MAPE {float(r['mape_pct']):.1f} %", transform=ax.get_yaxis_transform(), va="center", fontsize=6.5)
+    ax.axvline(0, color="0.5", lw=0.6)
+    ax.set_yticks(range(len(dets)))
+    ax.set_yticklabels([LABEL.get(d, d) for d in dets[::-1]])
+    ax.set_xlabel("Relative error of the L1 count, (C - N)/N (%)\n"
+                  "marker: mean; thick bar: 95 % CI of the mean; thin bar: limits of agreement")
+    ax.set_ylim(-0.6, len(dets) - 0.4)
+    save(fig, "fig_model_comparison")
+
+
+def fig_ap_vs_mape(detectors):
+    key = json.loads((RES / "summary.json").read_text(encoding="utf-8"))["nominal_key"]
+    acc = {r["detector"]: r for r in read_csv("counting_accuracy.csv")
+           if r["config_key"] == key and r["subset"] == "indep15" and r["estimator"] == "L1_fixed_confirmed"}
+    ev = json.loads((RES / "detector_eval.json").read_text(encoding="utf-8"))
+    fig, axes = plt.subplots(1, 2, figsize=(190 * MM, 70 * MM), sharey=True)
+    # a model is scored only on test images it never saw: random-split models on the
+    # random test set, blocked-split models on the blocked test set; the original YOLO
+    # (trained on another dataset) is valid on both
+    valid = {"random": lambda d: d.endswith("_random") or d in ("rfdetr_base_legacy", "yolo11n_legacy"),
+             "blocked": lambda d: d.endswith("_blocked") or d == "yolo11n_legacy"}
+    for ax, split in zip(axes, ("random", "blocked")):
+        for d in detectors:
+            e = ev.get(f"{d}__{split}")
+            if not e or d not in acc or not valid[split](d):
+                continue
+            ax.scatter(e["coco"]["AP50_95"], float(acc[d]["mape_pct"]), marker=mk(d), color=col(d), s=30, label=LABEL.get(d, d))
+        ax.set(xlabel=f"AP@[.50:.95], {split} test split", title=f"{split} split")
+    axes[0].set_ylabel("Counting MAPE at L1, 15 runs (%)")
+    handles = {}
+    for ax in axes:
+        for h, lab in zip(*ax.get_legend_handles_labels()):
+            handles.setdefault(lab, h)
+    fig.legend(handles.values(), handles.keys(), frameon=False, fontsize=6.5, ncol=4,
+               loc="upper center", bbox_to_anchor=(0.5, 0.0))
+    save(fig, "fig_ap_vs_counting_error")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--detectors", nargs="+", required=True)
+    ap.add_argument("--main", nargs="+", required=True, help="detectors shown in the detailed figures")
+    ap.add_argument("--all", nargs="*", default=[], help="detectors in the comparison figures")
     args = ap.parse_args()
-    rows = nominal_rows(args.detectors)
-    dets = [d for d in args.detectors if d in rows]
+    rows = nominal_rows(args.main)
+    dets = [d for d in args.main if d in rows]
     fig_counts_vs_n(rows, dets)
     fig_bland_altman(rows, dets)
     fig_sensitivity(dets)
     fig_line_profile(dets)
     fig_trapping(dets)
+    if args.all:
+        fig_forest(args.all)
+        if (RES / "detector_eval.json").exists():
+            fig_ap_vs_mape(args.all)
     print(f"figures -> {FIG}")
 
 
