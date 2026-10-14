@@ -1,0 +1,63 @@
+# Analysis plan
+
+This file fixes the design of the evaluation before the final numbers are produced.
+Changes are recorded in the git history.
+
+## Measurand and reference
+
+* **Measurand.** Number of wood pieces crossing the inlet line L1 (20 % of the frame
+  width, upstream of the permeable spur) during one run.
+* **Reference value.** N, the number of pieces counted by hand and released in the
+  run (encoded in the file name). All N pieces enter the field of view and must cross
+  L1, so N is the true value of the measurand. N is treated as exact (u(N) = 0).
+* **Measurement procedure.** Detector (RF-DETR Base or YOLO11) → confidence filter →
+  class-agnostic NMS → Kalman/IoU tracker → crossing of L1 by a confirmed track
+  (corrected rule, see README).
+
+## Runs
+
+16 runs: N ∈ {10, 20, 30, 50, 80, 120, 150, 200} × discharge code Q ∈ {40, 60}, one
+run per combination. Run 20040 supplied all detector training images; the primary
+statistics use the **15 independent runs**, and results for all 16 are reported as a
+secondary view.
+
+## Primary endpoint
+
+For each detector at the **nominal configuration fixed a priori** (confidence 0.25,
+NMS IoU 0.6, tracker IoU gate 0.3, 3 hits to confirm, 2 s coasting, legacy tracker
+settings otherwise):
+
+* relative error (C − N)/N per run; mean (bias), mean absolute value (MAPE), standard
+  deviation, Bland–Altman 95 % limits of agreement;
+* counting efficiency η = ΣC/ΣN with a 95 % bootstrap interval (resampling runs).
+
+Comparison of the detectors: paired Wilcoxon signed-rank test on |C − N|/N over the
+15 runs.
+
+## Secondary analyses
+
+1. **Original vs corrected counting rule** (dead zone at the line) for both detectors.
+2. **Calibrated measurement.** Leave-one-run-out ratio (C/k) and affine
+   ((C − b)/a) calibration; errors of the calibrated counts on the held-out runs.
+3. **Uncertainty budget (GUM).** Relative standard uncertainty of a calibrated count:
+   between-run scatter of η (Type A, ν = n − 1), uncertainty of the calibration factor,
+   re-run repeatability of the GPU inference; combined by the law of propagation,
+   ν_eff by Welch–Satterthwaite, expanded uncertainty at 95 %.
+4. **Robustness.** One-at-a-time variation of each processing parameter around the
+   nominal value; reported as sensitivity, and as optional Type B components.
+5. **Tuned procedure without optimism.** Nested leave-one-run-out choice of the
+   processing configuration over a factorial grid (confidence × tracker IoU × NMS IoU);
+   the held-out run never influences the choice.
+6. **Line-position profile.** η for lines every 5 % of the frame width; the decrease
+   downstream of the spur is wood retention, not counting error.
+7. **Outlet count and trapping efficiency** R = 1 − C_L2 / C_L1. Without a reference for
+   L2, the methods are compared with each other; if the pieces left between the lines at
+   the end of each run are counted by hand (kit: `scripts/make_count_kit.py`),
+   N_L2 = N − trapped becomes the reference for L2 and R.
+8. **Detector-level metrics** on held-out images: COCO AP (maxDets 500), precision,
+   recall and F1 at the operating point, PR and F1–confidence curves, latency. Two
+   splits: the original random split (adjacent frames in train and test, optimistic) and
+   a blocked split (100-frame blocks with 6-frame guards).
+9. **Fair detector comparison.** YOLO11n/s/m retrained on exactly the RF-DETR training
+   images with the same square-stretch geometry; RF-DETR retrained with a converging
+   schedule; both families also trained on the blocked split.

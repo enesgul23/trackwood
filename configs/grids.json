@@ -102,5 +102,41 @@
         4.0
       ]
     }
+  },
+  "tuning": {
+    "description": "Full factorial grid used for nested leave-one-run-out selection of the processing settings (the held-out run never influences the choice).",
+    "base": {
+      "conf": 0.25,
+      "nms_iou": 0.6,
+      "trk_iou": 0.3,
+      "min_hits": 3,
+      "max_age_s": 2.0,
+      "lines_pct": [
+        20,
+        80
+      ]
+    },
+    "product": {
+      "conf": [
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.5
+      ],
+      "trk_iou": [
+        0.1,
+        0.2,
+        0.3
+      ],
+      "nms_iou": [
+        0.5,
+        0.6,
+        0.7
+      ]
+    }
   }
 }

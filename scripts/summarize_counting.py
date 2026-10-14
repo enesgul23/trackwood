@@ -36,13 +36,15 @@ from run_counting import load_grid  # noqa: E402
 
 NOMINAL = load_grid("sensitivity")[0].__class__(**{**load_grid("nominal")[0].__dict__, "sweep_pct": ()})
 NOMINAL_SWEEP = load_grid("nominal")[0]
+TUNING_KEYS = {c.key() for c in load_grid("tuning")}
 # Type B ranges for the uncertainty budget (one-at-a-time, around the nominal value)
 TYPE_B_RANGES = {"conf": (0.2, 0.3), "nms_iou": (0.5, 0.7), "trk_iou": (0.2, 0.4), "max_age_s": (1.0, 4.0)}
 
 
 def load_runs(work: Path, detectors: list[str]) -> list[dict]:
     rows = []
-    for det in detectors:
+    folders = list(detectors) + [f"{d}_repeat" for d in detectors if (work / "counting" / f"{d}_repeat").exists()]
+    for det in folders:
         for p in (work / "counting" / det).glob("*/*.json"):
             with open(p, encoding="utf-8") as f:
                 rows.append(json.load(f))
@@ -159,7 +161,25 @@ def main() -> None:
         vv = [v for v in nom if v != TRAINING_VIDEO]
         N = np.array([nom[v]["N"] for v in vv], float)
         eta = np.array([nom[v]["L1_fixed_confirmed"] for v in vv], float) / N
-        dsum["uncertainty_budget_indep15"] = stats.uncertainty_budget(eta, type_b)
+        # repeatability: second extraction of the same runs (GPU inference repeated)
+        core_b = {}
+        rep = by.get((f"{det}_repeat", nominal_key))
+        if rep:
+            diffs = [(rep[v]["L1_fixed_confirmed"] - nom[v]["L1_fixed_confirmed"]) / nom[v]["N"] for v in rep if v in nom]
+            dsum["rerun_repeatability"] = {"videos": sorted(rep), "rel_diff_pct": [round(100 * d, 2) for d in diffs]}
+            core_b["u_rerun"] = float(np.sqrt(np.mean(np.square(diffs))) / np.sqrt(2))
+        dsum["uncertainty_budget_indep15"] = stats.uncertainty_budget(eta, core_b)
+        dsum["processing_sensitivity_typeB_rel"] = {k: float(v) for k, v in type_b.items()}
+        dsum["uncertainty_budget_with_processing_indep15"] = stats.uncertainty_budget(eta, {**core_b, **type_b})
+        # nested leave-one-run-out tuning over the factorial grid (independent runs only)
+        tuning = {ck: vids for (d2, ck), vids in by.items() if d2 == det and ck in TUNING_KEYS}
+        if tuning:
+            vv = sorted({v for vids in tuning.values() for v in vids if v != TRAINING_VIDEO},
+                        key=lambda v: (parse_experiment(v).n_released, parse_experiment(v).discharge_code))
+            tuning = {ck: vids for ck, vids in tuning.items() if all(v in vids for v in vv)}
+            Nt = np.array([parse_experiment(v).n_released for v in vv], float)
+            table = {ck: np.array([vids[v]["L1_fixed_confirmed"] for v in vv], float) for ck, vids in tuning.items()}
+            dsum["nested_loocv_tuning_indep15"] = {"n_configs": len(table), **stats.nested_loocv_select(table, Nt)}
         # mass-balance closure and trapping efficiency at the nominal configuration
         for v, r in sorted(nom.items(), key=lambda kv: (kv[1]["N"], kv[1]["Q"])):
             l1, l2 = r["L1_fixed_confirmed"], r["L2_fixed_confirmed"]

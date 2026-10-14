@@ -28,12 +28,19 @@ def load_grid(name: str) -> list[CountConfig]:
     g = grids[name]
     base = dict(g.get("base", {}))
     out = []
-    if not g.get("vary"):
+    if not g.get("vary") and not g.get("product"):
         out.append(CountConfig(**_tuples(base)))
     for param, values in g.get("vary", {}).items():
         for v in values:
             d = dict(base)
             d[param] = v
+            out.append(CountConfig(**_tuples(d)))
+    if g.get("product"):
+        import itertools
+        keys = list(g["product"])
+        for combo in itertools.product(*(g["product"][k] for k in keys)):
+            d = dict(base)
+            d.update(zip(keys, combo))
             out.append(CountConfig(**_tuples(d)))
     for extra in g.get("extra", []):
         d = dict(base)
@@ -52,8 +59,9 @@ def _dets(path: str):
     return detfile.load(Path(path))
 
 
-def _task(det_path: str, cfg: CountConfig, out_path: str) -> str:
+def _task(det_path: str, cfg: CountConfig, out_path: str, det_name: str) -> str:
     res = run(_dets(det_path), cfg)
+    res["detector"] = det_name  # folder name, e.g. a repeated extraction "<model>_repeat"
     Path(out_path).parent.mkdir(parents=True, exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(res, f)
@@ -82,7 +90,7 @@ def main() -> None:
                 out = paths["work_dir"] / "counting" / det / cfg.key() / f"{vid}.json"
                 if out.exists() and not args.overwrite:
                     continue
-                tasks.append((str(det_dir / f"{vid}.npz"), cfg, str(out)))
+                tasks.append((str(det_dir / f"{vid}.npz"), cfg, str(out), det))
     print(f"grid {args.grid}: {len(cfgs)} configs, {len(tasks)} runs to do", flush=True)
     if not tasks:
         return

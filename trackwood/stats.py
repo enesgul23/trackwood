@@ -130,3 +130,45 @@ def uncertainty_budget(eta: np.ndarray, type_b: dict[str, float]) -> dict:
     k95 = float(sps.t.ppf(0.975, nu_eff)) if math.isfinite(nu_eff) else 1.96
     return {"components_rel": {k: float(v) for k, v in comps.items()}, "u_c_rel": float(uc),
             "nu_eff": float(nu_eff), "k95": k95, "U95_rel": float(k95 * uc)}
+
+
+def nested_loocv_select(table: dict[str, np.ndarray], N: np.ndarray) -> dict:
+    """Nested leave-one-run-out choice of the processing configuration.
+
+    table maps a configuration key to its counts on the runs (same order as N).
+    For each held-out run the configuration is chosen on the remaining runs only:
+      raw        - smallest mean absolute relative error of the raw counts;
+      calibrated - smallest standard deviation of the efficiency C/N (precision),
+                   with the ratio calibration factor k = sum C / sum N of the
+                   remaining runs applied to the held-out run.
+    Returns the held-out errors and how often each configuration was chosen.
+    """
+    N = np.asarray(N, float)
+    keys = list(table)
+    M = np.array([np.asarray(table[k], float) for k in keys])  # configs x runs
+    out = {}
+    for mode in ("raw", "calibrated"):
+        rel, chosen = [], []
+        for i in range(N.size):
+            m = np.arange(N.size) != i
+            if mode == "raw":
+                crit = np.abs(M[:, m] / N[m] - 1).mean(1)
+            else:
+                crit = (M[:, m] / N[m]).std(1, ddof=1) / (M[:, m] / N[m]).mean(1)
+            j = int(np.argmin(crit))
+            chosen.append(keys[j])
+            if mode == "raw":
+                est = M[j, i]
+            else:
+                est = M[j, i] / (M[j, m].sum() / N[m].sum())
+            rel.append((est - N[i]) / N[i])
+        rel = np.array(rel)
+        counts = {k: chosen.count(k) for k in set(chosen)}
+        out[mode] = {"mape_pct": float(np.abs(rel).mean() * 100), "mpe_pct": float(rel.mean() * 100),
+                     "sd_pct": float(rel.std(ddof=1) * 100),
+                     "loa_low_pct": float((rel.mean() - 1.96 * rel.std(ddof=1)) * 100),
+                     "loa_high_pct": float((rel.mean() + 1.96 * rel.std(ddof=1)) * 100),
+                     "max_abs_rel_pct": float(np.abs(rel).max() * 100),
+                     "held_out_rel_error_pct": (rel * 100).round(2).tolist(),
+                     "chosen_configs": dict(sorted(counts.items(), key=lambda kv: -kv[1]))}
+    return out

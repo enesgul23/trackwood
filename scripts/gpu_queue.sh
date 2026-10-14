@@ -19,6 +19,10 @@ run() {  # run <name> <cmd...>; skip if a .done marker exists
   fi
 }
 
+# repeatability: second extraction of two runs with the same model and software
+for d in rfdetr_base_legacy yolo11n_legacy; do
+  run "repeat_${d}" "$PY" scripts/extract_detections.py --detector "$d" --videos 3060 12060 --tag _repeat
+done
 for m in yolo11n yolo11s yolo11m; do
   run "train_${m}_random" "$PY" scripts/train_yolo.py --model "$m" --split random
 done

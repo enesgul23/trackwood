@@ -53,6 +53,7 @@ def main() -> None:
     ap.add_argument("--videos", nargs="*", help="video ids (default: all in videos_dir)")
     ap.add_argument("--max-frames", type=int, default=0, help="debug: stop after n frames")
     ap.add_argument("--overwrite", action="store_true")
+    ap.add_argument("--tag", default="", help="suffix of the output folder (e.g. _repeat)")
     args = ap.parse_args()
 
     paths = config.load_paths()
@@ -60,7 +61,7 @@ def main() -> None:
     videos = list_videos(paths["videos_dir"])
     if args.videos:
         videos = [v for v in videos if v.stem in set(args.videos)]
-    out_dir = paths["work_dir"] / "detections" / spec.name
+    out_dir = paths["work_dir"] / "detections" / f"{spec.name}{args.tag}"
     detector = build_detector(spec)
     weights_hash = sha256(spec.weights)
     env = versions()
