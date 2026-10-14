@@ -46,7 +46,7 @@ def main() -> None:
                 lr_drop=int(round(0.75 * args.epochs)), resolution=args.resolution,
                 early_stopping=True, early_stopping_patience=args.patience,
                 early_stopping_use_ema=True, seed=args.seed, tensorboard=False,
-                num_workers=4, device="cuda")
+                num_workers=2, device="cuda")
     for name in ("checkpoint_best_total.pth", "checkpoint_best_ema.pth", "checkpoint_best_regular.pth"):
         if (out / name).exists():
             shutil.copy2(out / name, paths["weights_dir"] / f"rfdetr_base_{args.split}_best.pt")

@@ -29,6 +29,7 @@ def main() -> None:
     ap.add_argument("--patience", type=int, default=50)
     ap.add_argument("--batch", type=int, default=16)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--workers", type=int, default=2, help="data-loader processes (each loads torch; keep low when virtual memory is tight)")
     args = ap.parse_args()
 
     import ultralytics.engine.trainer as trainer_mod
@@ -41,7 +42,7 @@ def main() -> None:
     name = f"{args.model}_{args.split}"
     model = YOLO(str(paths["weights_dir"] / f"{args.model}.pt"))
     model.train(data=str(data), imgsz=args.imgsz, epochs=args.epochs, patience=args.patience,
-                batch=args.batch, seed=args.seed, deterministic=True, workers=8, device=0,
+                batch=args.batch, seed=args.seed, deterministic=True, workers=args.workers, device=0,
                 project=str(project), name=name, exist_ok=True, plots=False, verbose=True)
     best = project / name / "weights" / "best.pt"
     dst = paths["weights_dir"] / f"{name}_best.pt"
