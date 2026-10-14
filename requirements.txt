@@ -1,0 +1,13 @@
+# Environment used for all results in results/ (Python 3.11.9, Windows 11, NVIDIA RTX 4090, CUDA 12.6)
+torch==2.8.0
+torchvision==0.23.0
+rfdetr==1.4.0.post0
+ultralytics==8.4.7
+supervision==0.27.0
+transformers==4.57.6
+numpy==2.4.1
+scipy==1.17.0
+filterpy==1.4.5
+opencv-python==4.13.0.90
+pycocotools==2.0.11
+matplotlib==3.10.8

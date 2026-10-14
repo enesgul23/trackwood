@@ -1,0 +1,44 @@
+{
+ "block_frames": 100,
+ "test_blocks": [
+  3,
+  9,
+  15
+ ],
+ "val_blocks": [
+  5,
+  12,
+  18
+ ],
+ "guard_frames": 6,
+ "splits": {
+  "random": {
+   "train": {
+    "images": 700,
+    "boxes": 44559
+   },
+   "valid": {
+    "images": 200,
+    "boxes": 12194
+   },
+   "test": {
+    "images": 100,
+    "boxes": 5358
+   }
+  },
+  "blocked": {
+   "train": {
+    "images": 664,
+    "boxes": 40274
+   },
+   "valid": {
+    "images": 132,
+    "boxes": 8430
+   },
+   "test": {
+    "images": 132,
+    "boxes": 8796
+   }
+  }
+ }
+}

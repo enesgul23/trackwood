@@ -1,0 +1,54 @@
+{
+ "nominal_config": {
+  "conf": 0.25,
+  "nms_iou": 0.6,
+  "trk_iou": 0.3,
+  "min_hits": 3,
+  "max_age_s": 2.0,
+  "min_area": 0.0,
+  "lines_pct": [
+   20,
+   80
+  ],
+  "sweep_pct": [
+   5,
+   10,
+   15,
+   25,
+   30,
+   35,
+   40,
+   45,
+   50,
+   55,
+   60,
+   65,
+   70,
+   75,
+   85,
+   90,
+   95
+  ],
+  "end_window_s": 0.5
+ },
+ "nominal_key": "c0.25_n0.6_t0.3_h3_a2_m0_f87658",
+ "detectors": {
+  "yolo11n_legacy": {
+   "uncertainty_budget_indep15": {
+    "components_rel": {
+     "u_repeat": 0.1491861965370361,
+     "u_k": 0.0385197103114645,
+     "u_conf": 0.03641544129063006,
+     "u_nms_iou": 0.017545621712758145,
+     "u_trk_iou": 0.02317346263949186,
+     "u_max_age_s": 0.015228275448808965
+    },
+    "u_c_rel": 0.16168838013040257,
+    "nu_eff": 16.977403139372644,
+    "k95": 2.11002951285305,
+    "U95_rel": 0.34116725396055214
+   }
+  }
+ },
+ "paired_comparisons_L1_fixed_confirmed": {}
+}

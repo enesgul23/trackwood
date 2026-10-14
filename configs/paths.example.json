@@ -1,0 +1,8 @@
+{
+  "videos_dir": "path/to/videos (16 experiment videos named {N}{Q}.MP4)",
+  "weights_dir": "path/to/weights",
+  "coco_dir": "path/to/FloodTubitakTraditional.v3i.coco",
+  "work_dir": "path/to/large/intermediate/outputs",
+  "legacy_rfdetr_results": "path/to/results_v3_rfdetr",
+  "legacy_yolo_results": "path/to/results_v3_fixed_final"
+}

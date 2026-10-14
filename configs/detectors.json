@@ -1,0 +1,22 @@
+{
+  "yolo11n_legacy": {
+    "kind": "yolo",
+    "weights": "best400.pt",
+    "min_conf": 0.05,
+    "yolo_nms_iou": 0.6,
+    "extra": {"note": "Original YOLO11n model (400 epochs, 640 px, 406-image two-class dataset), letterboxed inference as in the original pipeline."}
+  },
+  "rfdetr_base_legacy": {
+    "kind": "rfdetr",
+    "weights": "rfdetr_base_896_best.pt",
+    "min_conf": 0.05,
+    "resolution": 896,
+    "extra": {"note": "Original RF-DETR Base model (20 epochs, random split, EMA weights of epoch 19)."}
+  },
+  "yolo11n_random": {"kind": "yolo", "weights": "yolo11n_random_best.pt", "min_conf": 0.05, "imgsz": 896, "stretch": 896, "yolo_nms_iou": 0.6},
+  "yolo11s_random": {"kind": "yolo", "weights": "yolo11s_random_best.pt", "min_conf": 0.05, "imgsz": 896, "stretch": 896, "yolo_nms_iou": 0.6},
+  "yolo11m_random": {"kind": "yolo", "weights": "yolo11m_random_best.pt", "min_conf": 0.05, "imgsz": 896, "stretch": 896, "yolo_nms_iou": 0.6},
+  "yolo11m_blocked": {"kind": "yolo", "weights": "yolo11m_blocked_best.pt", "min_conf": 0.05, "imgsz": 896, "stretch": 896, "yolo_nms_iou": 0.6},
+  "rfdetr_base_random": {"kind": "rfdetr", "weights": "rfdetr_base_random_best.pt", "min_conf": 0.05, "resolution": 896},
+  "rfdetr_base_blocked": {"kind": "rfdetr", "weights": "rfdetr_base_blocked_best.pt", "min_conf": 0.05, "resolution": 896}
+}

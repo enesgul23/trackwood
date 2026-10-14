@@ -1,0 +1,106 @@
+{
+  "legacy": {
+    "description": "Original pipeline settings (main_eg12.py / main_eg_13rfdetr.py): no extra NMS, conf 0.25, IoU gate 0.3, 3 hits, 2 s coasting, lines at 20 % and 80 %.",
+    "base": {
+      "conf": 0.25,
+      "nms_iou": null,
+      "trk_iou": 0.3,
+      "min_hits": 3,
+      "max_age_s": 2.0,
+      "lines_pct": [
+        20,
+        80
+      ]
+    }
+  },
+  "nominal": {
+    "description": "A-priori nominal configuration for both detectors: legacy tracker settings plus class-agnostic NMS at IoU 0.6 (the value of the YOLO pipeline, so YOLO output is unchanged and RF-DETR duplicates are removed), and counting lines every 5 % for the line-position study.",
+    "base": {
+      "conf": 0.25,
+      "nms_iou": 0.6,
+      "trk_iou": 0.3,
+      "min_hits": 3,
+      "max_age_s": 2.0,
+      "lines_pct": [
+        20,
+        80
+      ],
+      "sweep_pct": [
+        5,
+        10,
+        15,
+        25,
+        30,
+        35,
+        40,
+        45,
+        50,
+        55,
+        60,
+        65,
+        70,
+        75,
+        85,
+        90,
+        95
+      ]
+    }
+  },
+  "sensitivity": {
+    "description": "One-at-a-time variation around the nominal configuration.",
+    "base": {
+      "conf": 0.25,
+      "nms_iou": 0.6,
+      "trk_iou": 0.3,
+      "min_hits": 3,
+      "max_age_s": 2.0,
+      "lines_pct": [
+        20,
+        80
+      ]
+    },
+    "vary": {
+      "conf": [
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.5,
+        0.6
+      ],
+      "nms_iou": [
+        null,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8
+      ],
+      "trk_iou": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5
+      ],
+      "min_hits": [
+        1,
+        2,
+        3,
+        5,
+        8
+      ],
+      "max_age_s": [
+        0.25,
+        0.5,
+        1.0,
+        2.0,
+        4.0
+      ]
+    }
+  }
+}
