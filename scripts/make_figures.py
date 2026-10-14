@@ -73,23 +73,25 @@ def fig_counts_vs_n(rows, detectors):
     fig, ax = plt.subplots(figsize=(90 * MM, 85 * MM))
     lim = 230
     ax.plot([0, lim], [0, lim], color="0.4", lw=0.8, ls="--", zorder=1)
-    ax.text(lim * 0.97, lim * 0.93, "1:1", ha="right", va="top", color="0.4", fontsize=7)
+    ax.text(185, 200, "1:1", ha="right", va="bottom", color="0.4", fontsize=7)
     for d in detectors:
         fam = family(d)
         N = np.array([int(r["N"]) for r in rows[d]])
         C = np.array([int(r["L1_fixed_confirmed"]) for r in rows[d]])
         legacy = np.array([int(r["L1_legacy"]) for r in rows[d]])
-        indep = np.array([r["video"] != TRAINING_VIDEO for r in rows[d]])
-        ax.scatter(N[indep], C[indep], s=16, marker=MARKER[fam], color=COLOR[fam], zorder=3,
-                   label=f"{LABEL.get(d, d)}, corrected")
-        ax.scatter(N[~indep], C[~indep], s=16, marker=MARKER[fam], facecolor="white", edgecolor=COLOR[fam], zorder=3)
-        ax.scatter(N, legacy, s=10, marker=MARKER[fam], facecolor="none", edgecolor=COLOR[fam], alpha=0.45,
-                   lw=0.6, zorder=2, label=f"{LABEL.get(d, d)}, original rule")
+        train = np.array([r["video"] == TRAINING_VIDEO for r in rows[d]])
+        ax.scatter(N, legacy, s=10, marker=MARKER[fam], facecolor="none", edgecolor=COLOR[fam], alpha=0.5,
+                   lw=0.6, zorder=2, label=f"{LABEL.get(d, d)}, original counting rule")
+        ax.scatter(N, C, s=16, marker=MARKER[fam], color=COLOR[fam], zorder=3,
+                   label=f"{LABEL.get(d, d)}, corrected pipeline")
+        ax.scatter(N[train], C[train], s=46, marker="o", facecolor="none", edgecolor="k", lw=0.6, zorder=4)
+        if d == detectors[0] and train.any():
+            target = (float(N[train][0]), float(C[train][0]))
+    ax.scatter([], [], s=46, marker="o", facecolor="none", edgecolor="k", lw=0.6,
+               label=f"run {TRAINING_VIDEO} (training images)")
     ax.set(xlim=(0, lim), ylim=(0, lim), xlabel="Pieces released, $N$", ylabel="Pieces counted at L1, $C$")
     ax.set_aspect("equal")
-    ax.legend(frameon=False, loc="upper left")
-    ax.text(0.98, 0.02, f"open symbols at N = 200: run {TRAINING_VIDEO}\n(source of the training images)",
-            transform=ax.transAxes, ha="right", va="bottom", fontsize=6, color="0.35")
+    ax.legend(frameon=False, loc="upper left", fontsize=6.5)
     save(fig, "fig_counts_vs_N")
 
 
@@ -113,8 +115,9 @@ def fig_bland_altman(rows, detectors):
         ax.text(1.0, m + 1.96 * s, f" +1.96 s {m + 1.96 * s:+.1f} %", transform=ax.get_yaxis_transform(), va="center", fontsize=6.5, color=COLOR[fam])
         ax.text(1.0, m - 1.96 * s, f" -1.96 s {m - 1.96 * s:+.1f} %", transform=ax.get_yaxis_transform(), va="center", fontsize=6.5, color=COLOR[fam])
         ax.set(xscale="log", xlabel="Pieces released, $N$", title=LABEL.get(d, d))
-        ax.set_xticks([10, 20, 30, 50, 80, 120, 150, 200])
-        ax.set_xticklabels(["10", "20", "30", "50", "80", "120", "150", "200"])
+        ax.set_xticks([10, 20, 50, 100, 200])
+        ax.set_xticklabels(["10", "20", "50", "100", "200"])
+        ax.minorticks_off()
     axes[0].set_ylabel("Relative error $(C - N)/N$ (%)")
     fig.subplots_adjust(wspace=0.45)
     save(fig, "fig_bland_altman")
@@ -149,7 +152,7 @@ def fig_sensitivity(detectors):
         if p == "min_hits":
             ax.set_xticks([1, 3, 5, 8])
     axes[0].set_ylabel(r"$\sum C\,/\sum N$ at L1")
-    axes[0].legend(frameon=False, loc="lower left")
+    axes[0].legend(frameon=False, loc="upper right")
     axes[1].text(0.98, 0.02, "x: no NMS", transform=axes[1].transAxes, ha="right", va="bottom", fontsize=6)
     axes[2].text(0.5, 1.03, "black circle: nominal setting", transform=axes[2].transAxes, ha="center", fontsize=6)
     fig.subplots_adjust(wspace=0.15)

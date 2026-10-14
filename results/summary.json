@@ -33,8 +33,122 @@
  },
  "nominal_key": "c0.25_n0.6_t0.3_h3_a2_m0_f87658",
  "detectors": {
+  "rfdetr_base_legacy": {
+   "uncertainty_budget_indep15": {
+    "components_rel": {
+     "u_repeat": 0.04884798105784577,
+     "u_k": 0.012612494475526134
+    },
+    "u_c_rel": 0.05044997790210454,
+    "nu_eff": 13.999999999999998,
+    "k95": 2.144786687917803,
+    "U95_rel": 0.10820444101018115
+   },
+   "processing_sensitivity_typeB_rel": {
+    "u_conf": 0.013063382310856646,
+    "u_nms_iou": 0.01997929059307492,
+    "u_trk_iou": 0.0023053027607393708,
+    "u_max_age_s": 0.002305302760739434
+   },
+   "uncertainty_budget_with_processing_indep15": {
+    "components_rel": {
+     "u_repeat": 0.04884798105784577,
+     "u_k": 0.012612494475526134,
+     "u_conf": 0.013063382310856646,
+     "u_nms_iou": 0.01997929059307492,
+     "u_trk_iou": 0.0023053027607393708,
+     "u_max_age_s": 0.002305302760739434
+    },
+    "u_c_rel": 0.05590754083272055,
+    "nu_eff": 21.11376448805329,
+    "k95": 2.0789317668800167,
+    "U95_rel": 0.11622796264528441
+   },
+   "nested_loocv_tuning_indep15": {
+    "n_configs": 72,
+    "raw": {
+     "mape_pct": 4.766666666666667,
+     "mpe_pct": -1.5444444444444445,
+     "sd_pct": 5.985255251305531,
+     "loa_low_pct": -13.275544737003283,
+     "loa_high_pct": 10.186655848114395,
+     "max_abs_rel_pct": 10.0,
+     "held_out_rel_error_pct": [
+      10.0,
+      -10.0,
+      0.0,
+      0.0,
+      3.33,
+      -3.33,
+      -2.0,
+      0.0,
+      2.5,
+      5.0,
+      -5.83,
+      3.33,
+      -10.0,
+      -6.67,
+      -9.5
+     ],
+     "chosen_configs": {
+      "c0.4_n0.7_t0.2_h3_a2_m0_683e18": 8,
+      "c0.5_n0.7_t0.3_h3_a2_m0_c1bd2f": 4,
+      "c0.4_n0.7_t0.3_h3_a2_m0_dcaa06": 1,
+      "c0.4_n0.6_t0.1_h3_a2_m0_45bab0": 1,
+      "c0.35_n0.7_t0.3_h3_a2_m0_2db4a8": 1
+     }
+    },
+    "calibrated": {
+     "mape_pct": 4.831530760225953,
+     "mpe_pct": 1.3663662797296534,
+     "sd_pct": 5.611734989959056,
+     "loa_low_pct": -9.632634300590098,
+     "loa_high_pct": 12.365366860049404,
+     "max_abs_rel_pct": 12.430939226519335,
+     "held_out_rel_error_pct": [
+      12.43,
+      -3.65,
+      5.67,
+      -3.68,
+      5.72,
+      -3.42,
+      5.84,
+      -1.76,
+      2.6,
+      6.52,
+      -0.67,
+      7.71,
+      -5.72,
+      -1.7,
+      -5.39
+     ],
+     "chosen_configs": {
+      "c0.5_n0.7_t0.3_h3_a2_m0_c1bd2f": 7,
+      "c0.25_n0.7_t0.3_h3_a2_m0_e3a69e": 6,
+      "c0.35_n0.7_t0.3_h3_a2_m0_2db4a8": 1,
+      "c0.4_n0.7_t0.3_h3_a2_m0_dcaa06": 1
+     }
+    }
+   }
+  },
   "yolo11n_legacy": {
    "uncertainty_budget_indep15": {
+    "components_rel": {
+     "u_repeat": 0.1491861965370361,
+     "u_k": 0.0385197103114645
+    },
+    "u_c_rel": 0.154078841245858,
+    "nu_eff": 14.000000000000004,
+    "k95": 2.144786687917803,
+    "U95_rel": 0.33046624759391674
+   },
+   "processing_sensitivity_typeB_rel": {
+    "u_conf": 0.03641544129063006,
+    "u_nms_iou": 0.017545621712758145,
+    "u_trk_iou": 0.02317346263949186,
+    "u_max_age_s": 0.015228275448808965
+   },
+   "uncertainty_budget_with_processing_indep15": {
     "components_rel": {
      "u_repeat": 0.1491861965370361,
      "u_k": 0.0385197103114645,
@@ -47,8 +161,90 @@
     "nu_eff": 16.977403139372644,
     "k95": 2.11002951285305,
     "U95_rel": 0.34116725396055214
+   },
+   "nested_loocv_tuning_indep15": {
+    "n_configs": 72,
+    "raw": {
+     "mape_pct": 10.21111111111111,
+     "mpe_pct": -1.766666666666666,
+     "sd_pct": 14.050934838695603,
+     "loa_low_pct": -29.306498950510047,
+     "loa_high_pct": 25.773165617176712,
+     "max_abs_rel_pct": 30.0,
+     "held_out_rel_error_pct": [
+      30.0,
+      10.0,
+      5.0,
+      15.0,
+      3.33,
+      0.0,
+      -6.0,
+      -30.0,
+      -1.25,
+      -18.75,
+      -10.83,
+      -8.33,
+      -4.67,
+      -6.0,
+      -4.0
+     ],
+     "chosen_configs": {
+      "c0.15_n0.6_t0.2_h3_a2_m0_e732ba": 13,
+      "c0.1_n0.6_t0.3_h3_a2_m0_4ad8e5": 2
+     }
+    },
+    "calibrated": {
+     "mape_pct": 11.883280259036813,
+     "mpe_pct": 5.406222136766113,
+     "sd_pct": 15.804812197588047,
+     "loa_low_pct": -25.57120977050646,
+     "loa_high_pct": 36.383654044038686,
+     "max_abs_rel_pct": 35.36585365853659,
+     "held_out_rel_error_pct": [
+      35.37,
+      16.84,
+      7.08,
+      33.3,
+      13.85,
+      10.49,
+      -2.9,
+      -25.01,
+      7.52,
+      -13.78,
+      0.52,
+      3.25,
+      1.29,
+      -6.89,
+      0.17
+     ],
+     "chosen_configs": {
+      "c0.1_n0.6_t0.1_h3_a2_m0_4ba1cc": 12,
+      "c0.2_n0.6_t0.2_h3_a2_m0_f61785": 1,
+      "c0.1_n0.6_t0.3_h3_a2_m0_4ad8e5": 1,
+      "c0.15_n0.6_t0.2_h3_a2_m0_e732ba": 1
+     }
+    }
    }
   }
  },
- "paired_comparisons_L1_fixed_confirmed": {}
+ "paired_comparisons_L1_fixed_confirmed": {
+  "rfdetr_base_legacy__vs__yolo11n_legacy__all16": {
+   "a_better": 14,
+   "b_better": 2,
+   "ties": 0,
+   "median_abs_rel_a_pct": 2.5,
+   "median_abs_rel_b_pct": 19.125,
+   "statistic": 8.0,
+   "p": 0.0018522876200768638
+  },
+  "rfdetr_base_legacy__vs__yolo11n_legacy__indep15": {
+   "a_better": 13,
+   "b_better": 2,
+   "ties": 0,
+   "median_abs_rel_a_pct": 2.0,
+   "median_abs_rel_b_pct": 18.75,
+   "statistic": 8.0,
+   "p": 0.003023063773236309
+  }
+ }
 }
