@@ -72,6 +72,25 @@ Comparison of the detectors: paired Wilcoxon signed-rank test on |C − N|/N ove
     tracker update at the line, tested per crossing (binned observed loss with 95 %
     intervals) and per run (predicted vs observed loss); generalised to
     P = min(1, w s f / v).
-13. **Pending reference for L2.** Manual count of the pieces left between L1 and L2 at
-    the end of each run (`tools/sayac.html`, two independent counters), giving
-    N_L2 = N − trapped and the GUM uncertainty of R.
+13. **Reference for L2 (slit-scan count).** Pieces passing L2 counted on slit-scan
+    images of the line (`scripts/make_slitscan.py`). Each counted streak is recorded with
+    its (frame, row) position (`results/slitscan_points.csv`). Unclear streaks are
+    checked on the video, and uncertain pieces count ½ with a rectangular
+    uncertainty. The procedure is validated at L1, where the truth is N. The
+    combined standard uncertainty adds the RMS relative error at L1. The blind
+    first-pass count is reported with the adjudicated one (after the comparison with
+    the detector crossings, every change confirmed on the video). This gives
+    R_ref = 1 − N_L2/N with u(R) = u(N_L2)/N.
+    **Status:** counted by an AI assistant; a human must verify it on the marked images
+    before submission. A second independent human count would give the inter-counter
+    agreement.
+14. **Validation at L2.** Detector counts against the reference (agreement statistics,
+    paired Wilcoxon with Holm correction). One-to-one matching of crossing events to
+    counted pieces (Hungarian assignment in frame and row) gives event-level recall and
+    precision and classifies the errors: misses, extra counts, and reflections on the
+    glass walls.
+15. **Water-surface ROI (post hoc, physically defined).** Detections are kept only when
+    their box centre lies between the bed-wall junction lines widened by 1.5 % of the
+    bed width (k + U(k) from item 10). This was motivated by the reflections found in
+    item 14 and is not tuned on counts. It is reported next to the a-priori nominal
+    configuration, at L1 and L2, with the margin sensitivity (0, 0.75, 1.5, 3 and 5 %).

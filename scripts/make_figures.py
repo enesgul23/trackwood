@@ -342,6 +342,61 @@ def fig_velocity_flux(detectors):
     save(fig, "fig_velocity_flux")
 
 
+def fig_l2_validation(detectors):
+    """(a) detector count at L2 (with ROI) against the slit-scan reference; (b) relative
+    error without and with ROI; (c) trapping efficiency of the spur from the reference."""
+    rows = read_csv("l2_reference.csv")
+    detectors = [d for d in detectors if f"{d}__L2_roi" in rows[0]]
+    ref = np.array([float(r["L2_ref"]) for r in rows])
+    u = np.array([float(r["u_L2_ref"]) for r in rows])
+    N = np.array([int(r["N"]) for r in rows])
+    Q = np.array([int(r["Q"]) for r in rows])
+    indep = np.array([r["video"] != TRAINING_VIDEO for r in rows])
+    ticks = [10, 20, 30, 50, 80, 120, 200]
+    fig, axs = plt.subplots(1, 3, figsize=(190 * MM, 60 * MM))
+
+    ax = axs[0]
+    lim = [0, ref.max() * 1.1]
+    ax.plot(lim, lim, color="0.6", lw=0.6, zorder=0)
+    for d in detectors:
+        C = np.array([float(r[f"{d}__L2_roi"]) for r in rows])
+        ax.scatter(ref, C, s=14, marker=mk(d), color=col(d), label=LABEL.get(d, d), zorder=2)
+    ax.set(xlabel="Reference count at L2 (slit-scan)", ylabel="Detector count at L2 (with ROI)", xlim=lim, ylim=lim)
+    ax.legend(frameon=False, loc="upper left")
+    ax.set_title("(a)", loc="left")
+
+    ax = axs[1]
+    for k, d in enumerate(detectors):
+        x = N[indep] * (0.92 + 0.08 * k)
+        e0 = (np.array([float(r[f"{d}__L2"]) for r in rows]) - ref) / ref * 100
+        e1 = (np.array([float(r[f"{d}__L2_roi"]) for r in rows]) - ref) / ref * 100
+        ax.scatter(x, e0[indep], s=14, marker=mk(d), facecolors="none", edgecolors=col(d), linewidths=0.7)
+        ax.scatter(x, e1[indep], s=14, marker=mk(d), color=col(d), label=LABEL.get(d, d))
+    ax.axhline(0, color="0.6", lw=0.6, zorder=0)
+    ax.set(xscale="log", xlabel="Pieces released, $N$", ylabel="Count error at L2 (%)", ylim=(-30, 14))
+    ax.set_xticks(ticks)
+    ax.set_xticklabels([str(t) for t in ticks])
+    ax.legend(frameon=False, loc="lower right", title="open: no ROI, filled: ROI", title_fontsize=6,
+              fontsize=6, borderaxespad=0.2)
+    ax.set_title("(b)", loc="left")
+
+    ax = axs[2]
+    R = 1 - ref / N
+    for q, m, c in ((40, "o", "#1f5fbf"), (60, "s", "#d9822b")):
+        sel = Q == q
+        ax.errorbar(N[sel] * (0.97 if q == 40 else 1.03), R[sel], yerr=2 * u[sel] / N[sel], fmt=m, ms=3.5, color=c,
+                    elinewidth=0.6, capsize=1.5, label=f"Q{q}")
+    pooled = 1 - ref[indep].sum() / N[indep].sum()
+    ax.axhline(pooled, color="0.5", lw=0.6, ls="--", label=f"pooled {pooled:.2f}")
+    ax.set(xscale="log", xlabel="Pieces released, $N$", ylabel=r"Trapping efficiency $R = 1 - N_{L2}/N$", ylim=(0, 1))
+    ax.set_xticks(ticks)
+    ax.set_xticklabels([str(t) for t in ticks])
+    ax.legend(frameon=False, loc="lower right")
+    ax.set_title("(c)", loc="left")
+    fig.tight_layout()
+    save(fig, "fig_l2_validation")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--main", nargs="+", required=True, help="detectors shown in the detailed figures")
@@ -354,6 +409,9 @@ def main() -> None:
     fig_sensitivity(dets)
     fig_line_profile(dets)
     fig_trapping(dets)
+    if (RES / "l2_reference.csv").exists():
+        fig_l2_validation([d for d in ("rfdetr_base_legacy", "rfdetr_base_random", "yolo11m_random")
+                           if d in dets + args.all] or dets)
     if (RES / "deadzone_model.json").exists():
         fig_deadzone()
         fig_velocity_flux(dets)

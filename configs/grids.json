@@ -138,5 +138,82 @@
         0.7
       ]
     }
+  },
+  "nominal_roi": {
+    "description": "Nominal configuration with detections restricted to the water surface: box centres must lie between the bed-wall junction lines of the calibration widened on each side by 1.5 % of the bed width, the upper bound of the surface factor (k + U(k) - 1 = 0.03, split over both walls). Removes reflections of wall-hugging pieces in the glass side walls, found in the L2 audit.",
+    "base": {
+      "conf": 0.25,
+      "nms_iou": 0.6,
+      "trk_iou": 0.3,
+      "min_hits": 3,
+      "max_age_s": 2.0,
+      "lines_pct": [
+        20,
+        80
+      ],
+      "sweep_pct": [
+        5,
+        10,
+        15,
+        25,
+        30,
+        35,
+        40,
+        45,
+        50,
+        55,
+        60,
+        65,
+        70,
+        75,
+        85,
+        90,
+        95
+      ],
+      "roi_margin_rel": 0.015
+    }
+  },
+  "roi_margin": {
+    "description": "Sensitivity of the counts to the ROI margin: 0 (bed lines), 0.0075 (nominal surface factor k), 0.015 (k + U(k), the value used), 0.03 and 0.05 of the bed width on each side.",
+    "base": {
+      "conf": 0.25,
+      "nms_iou": 0.6,
+      "trk_iou": 0.3,
+      "min_hits": 3,
+      "max_age_s": 2.0,
+      "lines_pct": [
+        20,
+        80
+      ],
+      "sweep_pct": [
+        5,
+        10,
+        15,
+        25,
+        30,
+        35,
+        40,
+        45,
+        50,
+        55,
+        60,
+        65,
+        70,
+        75,
+        85,
+        90,
+        95
+      ],
+      "roi_margin_rel": 0.015
+    },
+    "vary": {
+      "roi_margin_rel": [
+        0.0,
+        0.0075,
+        0.015,
+        0.03,
+        0.05
+      ]
+    }
   }
 }

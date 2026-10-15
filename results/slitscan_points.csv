@@ -1,0 +1,754 @@
+video,line,piece,frame,row,certainty,note
+1040,L2,1,1137,1045,sure,
+1040,L2,2,1180,1045,sure,
+1040,L2,3,1218,1048,sure,
+1040,L2,4,1232,995,sure,
+1040,L2,5,1235,1098,sure,touches 3 but different orientation
+1060,L2,1,803,866,sure,
+1060,L2,2,898,942,sure,
+1060,L2,3,916,955,sure,
+1060,L2,4,888,975,sure,parallel to 5
+1060,L2,5,884,992,sure,parallel to 4
+1060,L2,6,1115,155,sure,along far wall; upper streak is its reflection
+2040,L2,1,1178,860,sure,
+2040,L2,2,1183,940,sure,
+2040,L2,3,1176,1005,sure,partly submerged; checked on video frame 1212
+2040,L2,4,1152,1045,sure,
+2040,L2,5,1245,1026,sure,
+2040,L2,6,1278,1058,sure,
+2040,L2,7,1210,1092,sure,pair of brown dowels moving together; checked on video frame 1212
+2040,L2,8,1215,1105,sure,pair of brown dowels moving together; checked on video frame 1212
+2040,L2,9,1195,855,sure,
+2040,L2,10,1230,872,sure,
+2040,L2,11,1250,890,sure,
+2040,L2,12,1425,815,sure,
+2040,L2,13,1675,155,sure,along far wall; upper streak is its reflection
+2060,L2,1,860,865,sure,
+2060,L2,2,915,988,sure,
+2060,L2,3,921,1028,sure,
+2060,L2,4,949,1040,sure,
+2060,L2,5,977,912,sure,overlaps 6 side by side
+2060,L2,6,972,990,sure,overlaps 5 side by side
+2060,L2,7,974,1052,sure,
+2060,L2,8,992,1025,sure,
+2060,L2,9,1015,1055,sure,
+2060,L2,10,1035,1000,sure,
+2060,L2,11,1020,1117,sure,
+2060,L2,12,1268,940,sure,
+3040,L2,1,1177,852,sure,
+3040,L2,2,1210,865,sure,
+3040,L2,3,1232,840,sure,
+3040,L2,4,1215,895,sure,pair of parallel sticks aligned with flow; checked on video frames 1195-1235
+3040,L2,5,1218,910,sure,pair of parallel sticks aligned with flow; checked on video frames 1195-1235
+3040,L2,6,1252,905,sure,
+3040,L2,7,1207,982,sure,
+3040,L2,8,1180,1062,sure,
+3040,L2,9,1209,1065,sure,dark stick
+3040,L2,10,1219,1086,sure,
+3040,L2,11,1236,1104,sure,
+3040,L2,12,1280,1082,sure,dark stick
+3040,L2,13,1302,1022,sure,
+3040,L2,14,1352,1150,sure,
+3040,L2,15,1395,1120,sure,
+3040,L2,16,1648,157,sure,along far wall; upper streak is its reflection
+3060,L2,1,995,962,sure,
+3060,L2,2,1004,955,sure,overlaps 3 side by side
+3060,L2,3,1010,1015,sure,overlaps 2 side by side
+3060,L2,4,1037,940,sure,
+3060,L2,5,1077,955,sure,
+3060,L2,6,1102,1000,sure,dark stick; faint on slit-scan; seen on video frame 1075
+3060,L2,7,998,1110,sure,
+3060,L2,8,980,1075,sure,pair of parallel sticks aligned with flow; seen on video frame 990
+3060,L2,9,978,1090,sure,pair of parallel sticks aligned with flow; seen on video frame 990
+3060,L2,10,1109,1074,sure,
+3060,L2,11,1112,1110,sure,
+3060,L2,12,1055,1145,sure,checked on video frames 1030-1075
+3060,L2,13,1033,1112,sure,checked on video frames 1030-1075
+3060,L2,14,1037,1135,sure,dark stick; checked on video frames 1030-1075
+3060,L2,15,1074,1130,sure,dark stick; checked on video frames 1030-1075
+3060,L2,16,1077,1158,sure,checked on video frames 1030-1075
+5040,L2,1,1142,857,sure,
+5040,L2,2,1124,890,sure,
+5040,L2,3,1265,802,sure,
+5040,L2,4,1217,910,sure,
+5040,L2,5,1232,920,sure,
+5040,L2,6,1145,931,sure,group of five near-parallel sticks; checked on video frames 1105-1165
+5040,L2,7,1160,939,sure,group of five near-parallel sticks; checked on video frames 1105-1165
+5040,L2,8,1133,965,sure,group of five near-parallel sticks; checked on video frames 1105-1165
+5040,L2,9,1138,978,sure,group of five near-parallel sticks; checked on video frames 1105-1165
+5040,L2,10,1120,994,sure,group of five near-parallel sticks; checked on video frames 1105-1165
+5040,L2,11,1094,1042,sure,dark stick
+5040,L2,12,1120,1062,sure,dark stick; pair with 13
+5040,L2,13,1130,1068,sure,dark stick; pair with 12
+5040,L2,14,1149,1090,sure,
+5040,L2,15,1165,1160,sure,
+5040,L2,16,1099,1123,sure,
+5040,L2,17,1120,1157,sure,
+5040,L2,18,1196,1081,sure,dark stick; checked on video frames 1180-1200
+5040,L2,19,1228,1082,sure,faint on slit-scan; checked on video frames 1200-1240
+5040,L2,20,1239,1190,sure,
+5040,L2,21,1226,990,sure,dark stick; checked on video frame 1220
+5040,L2,22,1292,815,sure,dark stick
+5040,L2,23,1408,157,sure,along far wall; upper streak is its reflection
+5060,L2,1,1094,915,sure,dark stick; pair with 2; checked on video frames 1080-1110
+5060,L2,2,1098,935,sure,dark stick; pair with 1; checked on video frames 1080-1110
+5060,L2,3,1122,959,sure,dark stick; checked on video frame 1125
+5060,L2,4,1131,885,sure,
+5060,L2,5,1117,859,sure,faint on slit-scan; checked on video frames 1080-1125
+5060,L2,6,1048,995,sure,dark stick
+5060,L2,7,1058,1030,sure,
+5060,L2,8,1073,985,sure,
+5060,L2,9,1079,1013,sure,
+5060,L2,10,1106,1000,sure,
+5060,L2,11,1110,1050,sure,
+5060,L2,12,978,1054,sure,
+5060,L2,13,990,1071,sure,
+5060,L2,14,1132,1155,sure,
+5060,L2,15,1190,836,sure,dark stick; faint on slit-scan; checked on video frames 1160-1195
+5060,L2,16,1158,1006,sure,dark stick; checked on video frame 1160
+5060,L2,17,1193,996,sure,checked on video frames 1160-1180
+5060,L2,18,1216,913,sure,checked on video frames 1180-1210
+5060,L2,19,1215,1023,sure,dark stick; checked on video frame 1195
+5060,L2,20,1246,1030,sure,dark stick; checked on video frame 1210
+5060,L2,21,1255,1080,sure,
+5060,L2,22,1317,816,sure,
+5060,L2,23,1305,831,sure,dark stick
+5060,L2,24,1278,882,sure,dark stick
+5060,L2,25,1170,1113,sure,
+5060,L2,26,1230,1113,sure,
+5060,L2,27,1268,1120,sure,
+5060,L2,28,1258,1137,sure,dark stick
+8040,L2,1,1176,841,sure,
+8040,L2,2,1183,883,sure,
+8040,L2,3,1160,896,sure,dark stick
+8040,L2,4,1151,912,sure,
+8040,L2,5,1185,1010,sure,
+8040,L2,6,1202,960,sure,
+8040,L2,7,1227,1012,sure,
+8040,L2,8,1232,1098,sure,
+8040,L2,9,1289,746,sure,
+8040,L2,10,1306,758,sure,
+8040,L2,11,1290,826,sure,
+8040,L2,12,1260,850,sure,three parallel sticks
+8040,L2,13,1270,853,sure,three parallel sticks
+8040,L2,14,1281,856,sure,three parallel sticks
+8040,L2,15,1243,868,sure,
+8040,L2,16,1326,847,sure,
+8040,L2,17,1321,872,sure,
+8040,L2,18,1325,907,sure,
+8040,L2,19,1279,980,sure,
+8040,L2,20,1265,1020,sure,dark stick
+8040,L2,21,1258,1072,sure,
+8040,L2,22,1272,1083,sure,
+8040,L2,23,1337,1090,sure,light stick; pair with 24; checked on video frames 1320-1340
+8040,L2,24,1330,1100,sure,dark stick; pair with 23; checked on video frames 1320-1340
+8040,L2,25,1379,781,sure,
+8040,L2,26,1369,871,sure,
+8040,L2,27,1392,966,sure,
+8040,L2,28,1399,1029,sure,
+8040,L2,29,1447,898,sure,dark stick
+8040,L2,30,1458,1030,sure,
+8040,L2,31,1516,862,sure,parallel pair
+8040,L2,32,1520,875,sure,parallel pair
+8040,L2,33,1561,806,sure,faint
+8040,L2,34,1632,841,sure,
+8040,L2,35,1925,175,sure,along far wall; upper streak is its reflection
+8060,L2,1,860,1029,sure,
+8060,L2,2,889,1110,sure,dark stick
+8060,L2,3,909,1096,sure,
+8060,L2,4,936,1150,sure,stacked pair
+8060,L2,5,936,1168,sure,stacked pair
+8060,L2,6,929,1076,sure,
+8060,L2,7,972,1143,sure,dark stick
+8060,L2,8,977,980,sure,pair of parallel sticks; checked on video frames 985-1000
+8060,L2,9,981,980,sure,pair of parallel sticks; checked on video frames 985-1000
+8060,L2,10,1014,822,sure,
+8060,L2,11,1005,926,sure,dark stick; checked on video frames 985-1015
+8060,L2,12,1012,930,sure,dark stick; checked on video frames 985-1015
+8060,L2,13,1008,1048,sure,
+8060,L2,14,1026,1045,sure,pair of parallel sticks; checked on video frame 1030
+8060,L2,15,1030,1045,sure,pair of parallel sticks; checked on video frame 1030
+8060,L2,16,1043,998,sure,
+8060,L2,17,1052,805,sure,
+8060,L2,18,1065,822,sure,
+8060,L2,19,1040,864,sure,
+8060,L2,20,1034,880,sure,
+8060,L2,21,1059,921,sure,
+8060,L2,22,1089,834,sure,dark stick; checked on video frame 1120
+8060,L2,23,1096,976,sure,dark stick; checked on video frame 1120
+8060,L2,24,1115,876,sure,dark stick; checked on video frame 1120
+8060,L2,25,1105,1155,sure,pair of red-brown dowels; checked on video frames 1085-1130
+8060,L2,26,1110,1170,sure,pair of red-brown dowels; checked on video frames 1085-1130
+8060,L2,27,1126,976,sure,checked on video frames 1120-1145
+8060,L2,28,1146,935,sure,checked on video frames 1120-1145
+8060,L2,29,1169,899,sure,checked on video frames 1145-1165
+8060,L2,30,1192,907,sure,checked on video frames 1165-1185
+8060,L2,31,1184,1060,sure,dark stick; checked on video frame 1165
+8060,L2,32,1335,165,sure,along far wall moving slowly; checked on video frames 1290-1385
+12040,L2,1,1022,870,sure,stacked pair
+12040,L2,2,1027,885,sure,stacked pair
+12040,L2,3,1093,870,sure,
+12040,L2,4,1154,876,sure,
+12040,L2,5,1162,938,sure,
+12040,L2,6,1102,1035,sure,
+12040,L2,7,1092,1092,sure,
+12040,L2,8,1068,1114,sure,
+12040,L2,9,1128,1123,sure,
+12040,L2,10,1149,1085,sure,
+12040,L2,11,1203,798,sure,raft of three stacked sticks; checked on video frames 1175-1245
+12040,L2,12,1207,810,sure,raft of three stacked sticks; checked on video frames 1175-1245
+12040,L2,13,1212,822,sure,raft of three stacked sticks; checked on video frames 1175-1245
+12040,L2,14,1189,863,sure,
+12040,L2,15,1213,876,sure,
+12040,L2,16,1234,869,sure,
+12040,L2,17,1194,922,sure,
+12040,L2,18,1243,960,sure,
+12040,L2,19,1175,1092,sure,
+12040,L2,20,1181,1110,sure,
+12040,L2,21,1225,1060,sure,group of four
+12040,L2,22,1234,1078,sure,group of four
+12040,L2,23,1246,1052,sure,group of four
+12040,L2,24,1245,1084,sure,group of four
+12040,L2,25,1233,1144,sure,dark stick
+12040,L2,26,1280,846,sure,
+12040,L2,27,1298,855,sure,group of five sticks aligned with flow; checked on video frames 1310-1330
+12040,L2,28,1335,826,sure,group of five sticks aligned with flow; checked on video frames 1310-1330
+12040,L2,29,1332,840,sure,group of five sticks aligned with flow; checked on video frames 1310-1330
+12040,L2,30,1334,854,sure,group of five sticks aligned with flow; checked on video frames 1310-1330
+12040,L2,31,1328,870,sure,group of five sticks aligned with flow; checked on video frames 1310-1330
+12040,L2,32,1295,924,sure,dark stick
+12040,L2,33,1306,958,sure,
+12040,L2,34,1338,940,sure,
+12040,L2,35,1328,1135,sure,parallel pair; checked on video frames 1320-1340
+12040,L2,36,1340,1128,sure,parallel pair; checked on video frames 1320-1340
+12040,L2,37,1347,1093,sure,three sticks side by side; checked on video frames 1335-1380
+12040,L2,38,1355,1079,sure,three sticks side by side; checked on video frames 1335-1380
+12040,L2,39,1361,1045,sure,three sticks side by side; checked on video frames 1335-1380
+12040,L2,40,1410,863,sure,
+12040,L2,41,1426,908,sure,
+12040,L2,42,1370,924,sure,
+12040,L2,43,1394,952,sure,
+12040,L2,44,1392,1006,sure,
+12040,L2,45,1406,1025,sure,
+12040,L2,46,1438,970,sure,
+12040,L2,47,1431,1057,sure,
+12040,L2,48,1426,1112,sure,dark stick
+12040,L2,49,1448,852,sure,
+12040,L2,50,1454,884,sure,
+12040,L2,51,1460,982,sure,
+12040,L2,52,1462,740,sure,
+12040,L2,53,1544,872,sure,
+12040,L2,54,1585,860,sure,dark stick
+12040,L2,55,1660,178,sure,along far wall; upper streak is its reflection
+12060,L2,1,1045,840,sure,
+12060,L2,2,967,990,sure,
+12060,L2,3,993,960,sure,
+12060,L2,4,984,1020,sure,
+12060,L2,5,1014,997,sure,
+12060,L2,6,994,1029,sure,
+12060,L2,7,1019,1042,sure,
+12060,L2,8,1038,1038,sure,
+12060,L2,9,1005,1088,sure,
+12060,L2,10,1030,1083,sure,
+12060,L2,11,994,1102,sure,
+12060,L2,12,1087,829,sure,
+12060,L2,13,1122,917,sure,checked on video frames 1115-1135
+12060,L2,14,1135,925,sure,parallel pair; checked on video frames 1115-1135
+12060,L2,15,1140,932,sure,parallel pair; checked on video frames 1115-1135
+12060,L2,16,1132,973,sure,checked on video frames 1115-1135
+12060,L2,17,1077,979,sure,dark stick; checked on video frame 1095
+12060,L2,18,1082,1060,sure,parallel pair; checked on video frames 1075-1095
+12060,L2,19,1088,1066,sure,parallel pair; checked on video frames 1075-1095
+12060,L2,20,1101,1060,sure,checked on video frame 1115
+12060,L2,21,1136,1037,sure,checked on video frame 1115
+12060,L2,22,1131,1079,sure,checked on video frames 1115-1135
+12060,L2,23,1164,1025,sure,raft crossing 1150-1250; checked on video frames 1150-1250
+12060,L2,24,1178,990,sure,raft; checked on video
+12060,L2,25,1203,993,sure,raft; three stacked sticks; checked on video
+12060,L2,26,1210,1003,sure,raft; three stacked sticks; checked on video
+12060,L2,27,1201,1013,sure,raft; three stacked sticks; checked on video
+12060,L2,28,1184,1035,sure,raft; checked on video
+12060,L2,29,1227,1037,sure,raft; checked on video
+12060,L2,30,1243,1060,sure,raft; checked on video frame 1230
+12060,L2,31,1201,1063,sure,raft; checked on video
+12060,L2,32,1227,1077,sure,raft; checked on video
+12060,L2,33,1178,1075,sure,raft; checked on video
+12060,L2,34,1204,1095,sure,raft; parallel pair; checked on video
+12060,L2,35,1216,1104,sure,raft; parallel pair; checked on video
+12060,L2,36,1193,1102,sure,raft; dark pair; checked on video
+12060,L2,37,1196,1120,sure,raft; dark pair; checked on video
+12060,L2,38,1163,1117,sure,checked on video frame 1190
+12060,L2,39,1158,1108,sure,checked on video frame 1190
+12060,L2,40,1148,1103,sure,checked on video frame 1150
+12060,L2,41,1180,865,sure,
+12060,L2,42,1241,884,sure,
+12060,L2,43,1257,818,sure,
+12060,L2,44,1281,845,sure,
+12060,L2,45,1261,958,sure,
+12060,L2,46,1279,942,sure,checked on video frame 1265
+12060,L2,47,1274,987,sure,checked on video frame 1265
+12060,L2,48,1290,1004,sure,end to end with 50; checked on video frames 1265-1305
+12060,L2,49,1320,906,sure,parallel pair; checked on video frames 1285-1325
+12060,L2,50,1325,916,sure,parallel pair; checked on video frames 1285-1325
+12060,L2,51,1340,869,sure,
+12060,L2,52,1318,1012,sure,
+12060,L2,53,1265,1098,sure,
+12060,L2,54,1285,1110,sure,end to end with 48; checked on video frames 1265-1305
+12060,L2,55,1270,1155,sure,
+12060,L2,56,1357,832,sure,
+12060,L2,57,1420,788,sure,
+12060,L2,58,1450,855,sure,
+12060,L2,59,1290,162,sure,along far wall; upper streak is its reflection
+15040,L2,1,1085,840,sure,dark stick
+15040,L2,2,1082,929,sure,aligned with flow
+15040,L2,3,1060,895,sure,checked on video frames 1055-1070
+15040,L2,4,1058,960,sure,dark stick
+15040,L2,5,1067,1040,sure,two sticks across the flow; checked on video frames 1070-1085
+15040,L2,6,1074,1030,sure,two sticks across the flow; checked on video frames 1070-1085
+15040,L2,7,1090,1000,sure,
+15040,L2,8,1020,1040,sure,
+15040,L2,9,1090,1062,sure,
+15040,L2,10,1085,1120,sure,dark stick
+15040,L2,11,1108,955,sure,
+15040,L2,12,1163,880,sure,
+15040,L2,13,1163,960,sure,dark stick; checked on video frame 1150
+15040,L2,14,1183,985,sure,dark stick
+15040,L2,15,1175,1050,sure,
+15040,L2,16,1152,1005,sure,dark stick aligned with flow; checked on video frame 1150
+15040,L2,17,1135,1020,sure,group of three
+15040,L2,18,1144,1064,sure,group of three
+15040,L2,19,1155,1093,sure,group of three
+15040,L2,20,1192,820,sure,
+15040,L2,21,1188,832,sure,dark stick
+15040,L2,22,1235,790,sure,raft of three stacked sticks; checked on video frames 1200-1260
+15040,L2,23,1245,800,sure,raft of three stacked sticks; checked on video frames 1200-1260
+15040,L2,24,1250,810,sure,raft of three stacked sticks; checked on video frames 1200-1260
+15040,L2,25,1262,830,sure,
+15040,L2,26,1247,845,sure,pair aligned with flow; checked on video frames 1240-1260
+15040,L2,27,1247,858,sure,pair aligned with flow; checked on video frames 1240-1260
+15040,L2,28,1200,915,sure,checked on video frames 1200-1220
+15040,L2,29,1215,910,sure,checked on video frames 1200-1220
+15040,L2,30,1205,988,sure,aligned with flow
+15040,L2,31,1205,1020,sure,dark stick
+15040,L2,32,1232,990,sure,
+15040,L2,33,1228,1040,sure,
+15040,L2,34,1273,940,sure,dark stick aligned with flow
+15040,L2,35,1277,990,sure,
+15040,L2,36,1272,1060,sure,dark stick
+15040,L2,37,1243,1090,sure,
+15040,L2,38,1203,1140,sure,
+15040,L2,39,1214,1130,sure,
+15040,L2,40,1290,1150,sure,
+15040,L2,41,1297,810,sure,checked on video frame 1300
+15040,L2,42,1320,910,sure,checked on video frames 1320-1340
+15040,L2,43,1326,860,sure,checked on video frames 1320-1340
+15040,L2,44,1340,850,sure,checked on video frames 1340-1360
+15040,L2,45,1350,810,sure,dark stick; checked on video frames 1340-1360
+15040,L2,46,1370,780,sure,pair aligned with flow; checked on video frames 1360-1400
+15040,L2,47,1375,795,sure,pair aligned with flow; checked on video frames 1360-1400
+15040,L2,48,1384,900,sure,parallel pair across the flow; checked on video frames 1380-1400
+15040,L2,49,1389,850,sure,parallel pair across the flow; checked on video frames 1380-1400
+15040,L2,50,1340,965,sure,
+15040,L2,51,1370,960,sure,
+15040,L2,52,1300,1000,sure,
+15040,L2,53,1315,1010,sure,
+15040,L2,54,1325,1057,sure,
+15040,L2,55,1370,1035,sure,
+15040,L2,56,1372,1070,sure,three parallel sticks; checked on video frames 1360-1380
+15040,L2,57,1380,1075,sure,three parallel sticks; checked on video frames 1360-1380
+15040,L2,58,1393,1090,sure,three parallel sticks; checked on video frames 1360-1380
+15040,L2,59,1368,1135,sure,
+15040,L2,60,1328,1128,sure,dark stick aligned with flow; checked on video frame 1320
+15040,L2,61,1403,855,sure,checked on video frames 1385-1415
+15040,L2,62,1397,875,sure,short stick; checked on video frames 1385-1415
+15040,L2,63,1400,930,sure,checked on video frames 1385-1415
+15040,L2,64,1422,890,sure,checked on video frame 1430
+15040,L2,65,1433,935,sure,aligned with flow; checked on video frame 1430
+15040,L2,66,1468,781,sure,checked on video frame 1445
+15040,L2,67,1483,800,sure,dark stick; checked on video frame 1445
+15040,L2,68,1505,820,sure,
+15040,L2,69,1405,990,sure,dark stick; pair aligned with flow; checked on video frames 1385-1415
+15040,L2,70,1400,1010,sure,pair aligned with flow; checked on video frames 1385-1415
+15040,L2,71,1400,1095,sure,
+15040,L2,72,1427,1120,sure,
+15040,L2,73,1470,1105,sure,
+15040,L2,74,1525,845,sure,
+15040,L2,75,1860,380,sure,dark stick
+15040,L2,76,2095,875,sure,
+15040,L2,77,2195,780,sure,dark short piece
+15040,L2,78,1475,170,sure,along far wall; upper streak is its reflection
+15060,L2,1,838,980,sure,
+15060,L2,2,887,1140,sure,reddish pair aligned with flow; checked on video frames 875-895
+15060,L2,3,890,1155,sure,reddish pair aligned with flow; checked on video frames 875-895
+15060,L2,4,925,1130,sure,reddish group of three; checked on video frames 895-940
+15060,L2,5,930,1147,sure,reddish group of three; checked on video frames 895-940
+15060,L2,6,930,1162,sure,reddish group of three; checked on video frames 895-940
+15060,L2,7,935,940,sure,raft of three parallel sticks; checked on video frames 930-950
+15060,L2,8,940,955,sure,raft of three parallel sticks; checked on video frames 930-950
+15060,L2,9,945,970,sure,raft of three parallel sticks; checked on video frames 930-950
+15060,L2,10,990,860,sure,raft of four sticks aligned with flow; checked on video frames 975-1025
+15060,L2,11,990,873,sure,raft of four sticks aligned with flow; checked on video frames 975-1025
+15060,L2,12,988,887,sure,raft of four sticks aligned with flow; checked on video frames 975-1025
+15060,L2,13,985,900,sure,raft of four sticks aligned with flow; checked on video frames 975-1025
+15060,L2,14,1012,900,sure,dark stick; checked on video frame 1010
+15060,L2,15,1000,955,sure,
+15060,L2,16,1008,985,sure,
+15060,L2,17,1018,965,sure,
+15060,L2,18,980,1000,sure,
+15060,L2,19,985,1020,sure,
+15060,L2,20,1022,1070,sure,
+15060,L2,21,963,1095,sure,
+15060,L2,22,975,1150,sure,dark pair
+15060,L2,23,985,1145,sure,dark pair
+15060,L2,24,1007,1088,sure,
+15060,L2,25,1041,980,sure,
+15060,L2,26,1040,1080,sure,parallel pair; checked on video frame 1035
+15060,L2,27,1047,1075,sure,parallel pair; checked on video frame 1035
+15060,L2,28,1050,1135,sure,reddish pair aligned with flow; checked on video frames 1035-1065
+15060,L2,29,1055,1155,sure,reddish pair aligned with flow; checked on video frames 1035-1065
+15060,L2,30,1068,1095,sure,aligned with flow; checked on video frames 1065-1110
+15060,L2,31,1085,1105,sure,aligned with flow; checked on video frames 1065-1110
+15060,L2,32,1100,1120,sure,checked on video frames 1095-1110
+15060,L2,33,1108,925,sure,
+15060,L2,34,1118,850,sure,aligned with flow
+15060,L2,35,1127,1072,sure,aligned with flow
+15060,L2,36,1165,743,sure,aligned with flow
+15060,L2,37,1160,830,sure,
+15060,L2,38,1184,805,sure,
+15060,L2,39,1210,770,sure,
+15060,L2,40,1186,925,sure,
+15060,L2,41,1196,925,sure,
+15060,L2,42,1228,910,sure,thin dark stick
+15060,L2,43,1132,995,sure,checked on video frame 1140
+15060,L2,44,1160,972,sure,aligned with flow; checked on video frame 1170
+15060,L2,45,1148,1040,sure,parallel pair across the flow; checked on video frames 1140-1155
+15060,L2,46,1153,1050,sure,parallel pair across the flow; checked on video frames 1140-1155
+15060,L2,47,1163,1060,sure,checked on video frames 1155-1170
+15060,L2,48,1200,970,sure,dark stick aligned with flow
+15060,L2,49,1208,1008,sure,aligned with flow
+15060,L2,50,1195,1028,sure,
+15060,L2,51,1213,1080,sure,parallel pair; checked on video frames 1200-1215
+15060,L2,52,1218,1090,sure,parallel pair; checked on video frames 1200-1215
+15060,L2,53,1188,1120,sure,checked on video frame 1200
+15060,L2,54,1156,1122,sure,aligned with flow; checked on video frame 1170
+15060,L2,55,1165,1150,sure,reddish pair; checked on video frames 1170-1185
+15060,L2,56,1175,1160,sure,reddish pair; checked on video frames 1170-1185
+15060,L2,57,1262,828,sure,
+15060,L2,58,1300,810,sure,thin dark stick
+15060,L2,59,1250,930,sure,dark red stick; pair with 60; checked on video frames 1240-1280
+15060,L2,60,1250,950,sure,pair with 59; checked on video frames 1240-1280
+15060,L2,61,1285,915,sure,aligned with flow
+15060,L2,62,1268,950,sure,aligned with flow
+15060,L2,63,1290,945,sure,checked on video frame 1280
+15060,L2,64,1308,945,sure,checked on video frame 1300
+15060,L2,65,1232,1020,sure,
+15060,L2,66,1248,1025,sure,parallel pair across the flow; checked on video frames 1240-1260
+15060,L2,67,1255,1030,sure,parallel pair across the flow; checked on video frames 1240-1260
+15060,L2,68,1288,1112,sure,pair aligned with flow; checked on video frame 1280
+15060,L2,69,1288,1128,sure,dark red; pair aligned with flow; checked on video frame 1280
+15060,L2,70,1325,1105,sure,
+15060,L2,71,1342,1150,sure,dark stick
+15060,L2,72,1365,880,sure,
+15060,L2,73,1372,920,sure,stacked pair
+15060,L2,74,1377,935,sure,stacked pair
+15060,L2,75,1398,825,sure,
+15060,L2,76,1390,868,sure,
+15060,L2,77,1420,865,sure,
+15060,L2,78,1215,170,sure,along far wall; upper streak is its reflection
+15060,L2,79,1355,162,sure,along far wall; upper streak is its reflection
+15060,L2,80,2050,185,sure,along far wall; upper streak is its reflection
+20040,L2,1,1101,808,sure,
+20040,L2,2,1113,824,sure,
+20040,L2,3,1064,903,sure,thin stick
+20040,L2,4,1113,845,sure,dark pair; checked on video frame 1125
+20040,L2,5,1118,860,sure,dark pair; checked on video frame 1125
+20040,L2,6,1094,939,sure,dark stick; checked on video frames 1095-1125
+20040,L2,7,1094,922,sure,checked on video frames 1100-1130
+20040,L2,8,1107,1000,sure,checked on video frames 1100-1130
+20040,L2,9,1127,1060,sure,checked on video frames 1100-1130
+20040,L2,10,1066,1053,sure,checked on video frames 1070-1100
+20040,L2,11,1085,1100,sure,reddish; checked on video frames 1070-1130
+20040,L2,12,1090,1120,uncertain,second reddish stick of an overlapping pair; checked on video frames 1070-1130
+20040,L2,13,1055,1160,sure,reddish; checked on video frames 1050-1070
+20040,L2,14,1103,1150,sure,checked on video frames 1100-1130
+20040,L2,15,1178,775,sure,checked on video frame 1195
+20040,L2,16,1193,978,sure,checked on video frame 1195
+20040,L2,17,1205,960,uncertain,dark submerged stick next to 18 (could be its shadow); video frames 1195-1225
+20040,L2,18,1207,1000,sure,checked on video frames 1195-1225
+20040,L2,19,1224,1000,sure,checked on video frame 1225
+20040,L2,20,1173,1060,sure,dark pair; checked on video frame 1130
+20040,L2,21,1178,1072,sure,dark pair; checked on video frame 1130
+20040,L2,22,1176,1085,sure,
+20040,L2,23,1226,1180,sure,parallel pair; checked on video frame 1250
+20040,L2,24,1229,1188,sure,parallel pair; checked on video frame 1250
+20040,L2,25,1209,1085,sure,
+20040,L2,26,1170,1110,sure,
+20040,L2,27,1287,836,sure,reddish
+20040,L2,28,1252,953,sure,
+20040,L2,29,1254,960,sure,
+20040,L2,30,1297,990,sure,
+20040,L2,31,1271,1005,sure,checked on video frame 1250
+20040,L2,32,1320,978,sure,
+20040,L2,33,1266,1045,sure,checked on video frames 1250-1290
+20040,L2,34,1301,1095,sure,checked on video frame 1290
+20040,L2,35,1251,1150,sure,group of four reddish sticks; checked on video frames 1250-1310
+20040,L2,36,1261,1140,sure,group of four reddish sticks; checked on video frames 1250-1310
+20040,L2,37,1275,1120,sure,group of four reddish sticks; checked on video frames 1250-1310
+20040,L2,38,1277,1140,sure,group of four reddish sticks; checked on video frames 1250-1310
+20040,L2,39,1352,960,sure,dark stick; checked on video frame 1350
+20040,L2,40,1387,1019,sure,checked on video frame 1390
+20040,L2,41,1409,882,sure,
+20040,L2,42,1409,960,sure,parallel pair
+20040,L2,43,1415,980,sure,parallel pair
+20040,L2,44,1389,1015,sure,three stacked sticks; checked on video frame 1390
+20040,L2,45,1387,1037,sure,three stacked sticks; checked on video frame 1390
+20040,L2,46,1394,1055,sure,three stacked sticks; checked on video frame 1390
+20040,L2,47,1340,1091,sure,checked on video frame 1350
+20040,L2,48,1342,1110,sure,checked on video frames 1350-1370
+20040,L2,49,1345,1125,uncertain,possible second stick under 48; video frames 1350-1370
+20040,L2,50,1384,1140,sure,reddish; checked on video frame 1350
+20040,L2,51,1482,806,sure,
+20040,L2,52,1470,843,sure,
+20040,L2,53,1468,932,sure,brown short piece; checked on video frames 1460-1475
+20040,L2,54,1458,945,sure,stack of light sticks; checked on video frames 1460-1475
+20040,L2,55,1466,965,sure,stack of light sticks; checked on video frames 1460-1475
+20040,L2,56,1476,982,sure,stack of light sticks; checked on video frames 1460-1475
+20040,L2,57,1466,1000,sure,stack of light sticks; checked on video frames 1460-1475
+20040,L2,58,1437,1018,sure,checked on video frame 1460
+20040,L2,59,1499,990,sure,thin translucent pair; checked on video frames 1490-1535
+20040,L2,60,1503,1000,sure,thin translucent pair; checked on video frames 1490-1535
+20040,L2,61,1511,1040,uncertain,third thin translucent stick; video frames 1490-1535
+20040,L2,62,1491,1010,sure,
+20040,L2,63,1468,1148,sure,dark thin stick
+20040,L2,64,1473,1215,sure,dark thin stick
+20040,L2,65,1435,1090,sure,
+20040,L2,66,1433,1110,sure,reddish
+20040,L2,67,1451,1150,sure,
+20040,L2,68,1497,1150,sure,
+20040,L2,69,1527,1145,sure,reddish
+20040,L2,70,1582,790,sure,
+20040,L2,71,1603,850,sure,
+20040,L2,72,1542,875,sure,dark reddish; checked on video frame 1555
+20040,L2,73,1545,895,sure,checked on video frame 1555
+20040,L2,74,1539,960,sure,checked on video frame 1555
+20040,L2,75,1568,955,sure,group of three; checked on video frames 1555-1600
+20040,L2,76,1575,975,sure,group of three; checked on video frames 1555-1600
+20040,L2,77,1582,1010,sure,group of three; checked on video frames 1555-1600
+20040,L2,78,1575,1060,sure,long thin stick; checked on video frames 1580-1600
+20040,L2,79,1575,1150,sure,long thin stick near the wall
+20040,L2,80,1585,1145,sure,
+20040,L2,81,1603,920,sure,group of four; checked on video frames 1615-1630
+20040,L2,82,1601,940,sure,group of four; checked on video frames 1615-1630
+20040,L2,83,1621,925,sure,group of four; checked on video frames 1615-1630
+20040,L2,84,1632,915,sure,group of four; checked on video frames 1615-1630
+20040,L2,85,1633,810,sure,
+20040,L2,86,1647,900,sure,reddish thin stick; checked on video frames 1650-1680
+20040,L2,87,1661,900,sure,reddish; checked on video frames 1665-1680
+20040,L2,88,1644,1010,sure,reddish pair; checked on video frames 1640-1680
+20040,L2,89,1655,1040,sure,reddish pair; checked on video frames 1640-1680
+20040,L2,90,1644,1140,sure,thin stick near the wall; checked on video frames 1640-1660
+20040,L2,91,1690,890,sure,reddish; checked on video frame 1695
+20040,L2,92,1697,925,sure,checked on video frame 1695
+20040,L2,93,1690,955,sure,checked on video frame 1695
+20040,L2,94,1721,840,sure,checked on video frame 1695
+20040,L2,95,1733,1000,sure,checked on video frame 1695
+20040,L2,96,1663,1118,sure,checked on video frames 1660-1700
+20040,L2,97,1670,1160,sure,reddish; checked on video frames 1660-1700
+20040,L2,98,1790,800,sure,
+20040,L2,99,1836,930,sure,stacked pair
+20040,L2,100,1845,943,sure,stacked pair
+20060,L2,1,1360,195,sure,along far wall; upper streak is its reflection
+20060,L2,2,1470,160,sure,thin stick along far wall; upper streak is its reflection
+20060,L2,3,1055,885,sure,checked on video frames 1035-1065
+20060,L2,4,1050,950,sure,parallel pair; checked on video frames 1035-1065
+20060,L2,5,1058,962,sure,parallel pair; checked on video frames 1035-1065
+20060,L2,6,1040,1000,sure,reddish; pair with next; checked on video frames 1035-1065
+20060,L2,7,1048,1012,sure,checked on video frames 1035-1065
+20060,L2,8,1068,962,sure,checked on video frames 1050-1095
+20060,L2,9,997,1060,sure,reddish
+20060,L2,10,985,1092,sure,reddish
+20060,L2,11,1056,1100,sure,checked on video frames 1050-1075
+20060,L2,12,1076,1100,sure,checked on video frames 1075-1095
+20060,L2,13,1147,843,sure,checked on video frame 1160
+20060,L2,14,1128,873,sure,checked on video frame 1160
+20060,L2,15,1135,945,sure,pair; checked on video frames 1110-1160
+20060,L2,16,1140,935,sure,reddish; pair; checked on video frames 1110-1160
+20060,L2,17,1160,955,sure,checked on video frames 1160-1180
+20060,L2,18,1165,1050,sure,group of three; checked on video frames 1135-1200
+20060,L2,19,1168,1060,sure,group of three; checked on video frames 1135-1200
+20060,L2,20,1160,1020,sure,reddish; group of three; checked on video frames 1135-1200
+20060,L2,21,1093,1070,sure,reddish; checked on video frames 1075-1095
+20060,L2,22,1116,1105,sure,reddish; checked on video frames 1095-1135
+20060,L2,23,1133,1150,sure,checked on video frames 1095-1135
+20060,L2,24,1090,1152,sure,reddish; checked on video frames 1075-1115
+20060,L2,25,1240,830,sure,two sticks end to end; checked on video frames 1200-1240
+20060,L2,26,1228,880,sure,two sticks end to end; checked on video frames 1200-1240
+20060,L2,27,1180,885,sure,checked on video frames 1160-1200
+20060,L2,28,1190,890,sure,dark stick; checked on video frames 1160-1200
+20060,L2,29,1182,935,sure,checked on video frames 1160-1200
+20060,L2,30,1195,1010,sure,checked on video frames 1180-1220
+20060,L2,31,1217,990,sure,checked on video frames 1200-1240
+20060,L2,32,1232,1005,sure,dark stick; checked on video frames 1200-1240
+20060,L2,33,1252,915,sure,checked on video frames 1220-1240
+20060,L2,34,1255,955,sure,checked on video frames 1220-1280
+20060,L2,35,1255,1015,sure,checked on video frames 1240-1280
+20060,L2,36,1190,1140,sure,dark stick; pair
+20060,L2,37,1200,1165,sure,pair
+20060,L2,38,1228,1125,sure,checked on video frame 1250
+20060,L2,39,1282,810,sure,checked on video frame 1280
+20060,L2,40,1299,945,sure,translucent reddish; checked on video frames 1280-1325
+20060,L2,41,1312,930,sure,checked on video frames 1280-1325
+20060,L2,42,1318,955,sure,checked on video frames 1280-1325
+20060,L2,43,1303,1040,sure,checked on video frames 1280-1310
+20060,L2,44,1280,1108,sure,checked on video frames 1250-1280
+20060,L2,45,1264,1118,sure,checked on video frames 1250-1280
+20060,L2,46,1325,1125,sure,stack of three reddish sticks; checked on video frames 1310-1340
+20060,L2,47,1328,1140,sure,stack of three reddish sticks; checked on video frames 1310-1340
+20060,L2,48,1322,1152,sure,stack of three reddish sticks; checked on video frames 1310-1340
+20060,L2,49,1384,822,sure,dark stick
+20060,L2,50,1423,860,sure,
+20060,L2,51,1435,930,sure,checked on video frames 1395-1440
+20060,L2,52,1420,990,sure,checked on video frames 1380-1395
+20060,L2,53,1359,980,sure,checked on video frames 1350-1365
+20060,L2,54,1354,1000,sure,checked on video frames 1350-1365
+20060,L2,55,1352,1030,sure,checked on video frames 1350-1365
+20060,L2,56,1350,1045,sure,checked on video frames 1350-1365
+20060,L2,57,1400,984,sure,checked on video frames 1365-1395
+20060,L2,58,1382,1030,sure,checked on video frames 1350-1380
+20060,L2,59,1395,1040,sure,dark stick; checked on video frames 1365-1395
+20060,L2,60,1372,1060,sure,reddish; checked on video frames 1350-1380
+20060,L2,61,1378,1075,sure,checked on video frames 1350-1380
+20060,L2,62,1416,1080,sure,dark stick; checked on video frames 1380-1395
+20060,L2,63,1415,1120,sure,checked on video frames 1380-1395
+20060,L2,64,1375,1157,sure,checked on video frames 1350-1380
+20060,L2,65,1440,830,sure,dark stick; checked on video frame 1440
+20060,L2,66,1458,838,sure,checked on video frame 1440
+20060,L2,67,1447,925,sure,checked on video frame 1440
+20060,L2,68,1463,880,sure,brown stick
+20060,L2,69,1462,1015,sure,checked on video frames 1440-1460
+20060,L2,70,1487,975,sure,dark stick; checked on video frame 1460
+20060,L2,71,1445,1015,sure,parallel pair; checked on video frame 1440
+20060,L2,72,1448,1035,sure,parallel pair; checked on video frame 1440
+20060,L2,73,1500,1000,sure,group of six; checked on video frames 1480-1530
+20060,L2,74,1508,1010,sure,group of six; checked on video frames 1480-1530
+20060,L2,75,1513,975,sure,group of six; checked on video frames 1480-1530
+20060,L2,76,1517,950,sure,group of six; checked on video frames 1480-1530
+20060,L2,77,1515,1060,sure,group of six; checked on video frames 1480-1530
+20060,L2,78,1527,980,sure,dark stick; group of six; checked on video frames 1480-1530
+20060,L2,79,1502,1100,sure,checked on video frames 1460-1500
+20060,L2,80,1486,1110,sure,checked on video frames 1460-1500
+20060,L2,81,1490,1125,uncertain,possible reddish stick under the previous one
+20060,L2,82,1450,1115,sure,checked on video frame 1440
+20060,L2,83,1444,1140,sure,reddish; checked on video frame 1440
+20060,L2,84,1565,790,sure,reddish pair; checked on video frames 1535-1595
+20060,L2,85,1578,800,sure,reddish pair; checked on video frames 1535-1595
+20060,L2,86,1545,835,sure,reddish stack; checked on video frames 1535-1595
+20060,L2,87,1550,850,sure,reddish stack; checked on video frames 1535-1595
+20060,L2,88,1555,842,uncertain,possible third stick of the reddish stack
+20060,L2,89,1532,900,sure,checked on video frames 1535-1555
+20060,L2,90,1577,887,sure,checked on video frames 1535-1555
+20060,L2,91,1557,965,sure,checked on video frames 1535-1555
+20060,L2,92,1570,950,sure,checked on video frames 1535-1555
+20060,L2,93,1542,955,sure,checked on video frames 1535-1555
+20060,L2,94,1605,850,sure,
+20060,L2,95,1608,910,sure,
+20060,L2,96,1527,1140,sure,checked on video frames 1535-1555
+20060,L2,97,1562,1068,sure,checked on video frames 1555-1575
+20060,L2,98,1553,1105,sure,group of three; checked on video frames 1535-1595
+20060,L2,99,1565,1110,sure,reddish; group of three; checked on video frames 1535-1595
+20060,L2,100,1581,1123,sure,reddish; group of three; checked on video frames 1535-1595
+20060,L2,101,1602,1090,sure,reddish; checked on video frame 1595
+20060,L2,102,1611,1068,sure,
+20060,L2,103,1622,830,sure,
+20060,L2,104,1639,868,sure,dark reddish
+20060,L2,105,1665,910,sure,
+20060,L2,106,1647,927,sure,
+20060,L2,107,1623,978,sure,
+20060,L2,108,1700,940,sure,
+20060,L2,109,1635,1032,sure,
+20060,L2,110,1622,1135,sure,checked on video frame 1595
+20060,L2,111,1723,880,sure,
+20060,L2,112,1747,930,sure,
+8060,L1,1,400,1056,sure,
+8060,L1,2,402,1134,sure,
+8060,L1,3,449,1050,sure,
+8060,L1,4,450,952,sure,checked on video frame 480
+8060,L1,5,457,1147,sure,
+8060,L1,6,458,492,sure,brown stick
+8060,L1,7,460,330,sure,checked on video frames 480-500
+8060,L1,8,463,590,sure,
+8060,L1,9,474,1094,sure,
+8060,L1,10,480,1166,sure,dark stick
+8060,L1,11,482,404,sure,checked on video frames 480-520
+8060,L1,12,489,612,sure,
+8060,L1,13,491,311,sure,checked on video frames 480-520
+8060,L1,14,493,885,sure,parallel pair; checked on video frames 480-540
+8060,L1,15,497,892,sure,parallel pair; checked on video frames 480-540
+8060,L1,16,506,795,sure,checked on video frames 480-540
+8060,L1,17,510,970,sure,checked on video frames 480-540
+8060,L1,18,511,905,sure,brown stick; checked on video frames 480-540
+8060,L1,19,511,312,sure,checked on video frames 480-520
+8060,L1,20,515,335,sure,brown stick; checked on video frames 480-520
+8060,L1,21,517,466,sure,checked on video frames 480-520
+8060,L1,22,522,390,sure,checked on video frames 480-520
+8060,L1,23,523,566,sure,
+8060,L1,24,523,940,sure,translucent stick; checked on video frames 510-540
+8060,L1,25,525,815,sure,parallel pair; checked on video frames 480-540
+8060,L1,26,527,532,sure,
+8060,L1,27,527,800,sure,parallel pair; checked on video frames 480-540
+8060,L1,28,533,590,sure,
+8060,L1,29,535,1070,sure,pair
+8060,L1,30,538,840,sure,brown pair; checked on video frames 525-540
+8060,L1,31,540,1078,sure,pair
+8060,L1,32,542,860,sure,brown pair; checked on video frames 525-540
+8060,L1,33,545,255,sure,brown thin stick; checked on video frames 520-540
+8060,L1,34,552,330,sure,checked on video frame 520
+8060,L1,35,558,253,sure,checked on video frame 520
+8060,L1,36,560,978,sure,
+8060,L1,37,563,632,sure,checked on video frame 560
+8060,L1,38,565,1170,sure,pair
+8060,L1,39,575,1165,sure,pair
+8060,L1,40,577,237,sure,
+8060,L1,41,580,620,sure,checked on video frame 560
+8060,L1,42,581,785,sure,brown stick; checked on video frames 560-600
+8060,L1,43,581,310,sure,
+8060,L1,44,570,348,sure,
+8060,L1,45,585,917,sure,checked on video frames 560-600
+8060,L1,46,598,580,sure,
+8060,L1,47,598,367,sure,
+8060,L1,48,599,253,sure,
+8060,L1,49,602,845,sure,faint brown submerged stick; checked on video frames 560-600
+8060,L1,50,605,400,sure,
+8060,L1,51,606,986,sure,brown stick
+8060,L1,52,607,415,sure,brown stick
+8060,L1,53,607,505,sure,checked on video frame 625
+8060,L1,54,612,820,sure,brown stick; checked on video frames 560-600
+8060,L1,55,616,452,sure,checked on video frame 625
+8060,L1,56,621,398,sure,checked on video frame 625
+8060,L1,57,628,332,sure,checked on video frame 625
+8060,L1,58,628,495,sure,parallel pair; checked on video frame 625
+8060,L1,59,632,505,sure,parallel pair; checked on video frame 625
+8060,L1,60,636,900,sure,checked on video frame 600
+8060,L1,61,639,660,sure,group of three; checked on video frames 600-640
+8060,L1,62,639,735,sure,checked on video frames 600-640
+8060,L1,63,641,995,sure,brown stick
+8060,L1,64,645,575,sure,
+8060,L1,65,646,680,sure,group of three; checked on video frames 600-640
+8060,L1,66,647,380,sure,translucent stick; checked on video frames 625-655
+8060,L1,67,653,332,sure,dark brown stick; checked on video frames 625-655
+8060,L1,68,657,465,sure,checked on video frames 625-655
+8060,L1,69,659,525,sure,checked on video frames 640-655
+8060,L1,70,660,378,sure,checked on video frames 625-655
+8060,L1,71,665,273,sure,orange stick; checked on video frames 625-655
+8060,L1,72,667,833,sure,
+8060,L1,73,675,768,sure,
+8060,L1,74,677,481,sure,checked on video frames 625-655
+8060,L1,75,684,268,sure,checked on video frames 625-655
+8060,L1,76,685,400,sure,dark stick; checked on video frames 625-655
+8060,L1,77,694,1087,sure,brown stick
+8060,L1,78,712,445,sure,parallel pair
+8060,L1,79,723,450,sure,parallel pair
+8060,L1,80,730,475,sure,
+8060,L2,33,1030,795,sure,audit: light stick end to end with 10 (one streak on the slit-scan); seen on video frames 1022-1038
+8060,L2,34,1080,855,sure,audit: faint submerged dark stick aligned with flow; seen on video frames 1064-1090
+20060,L2,113,1301,985,sure,audit: fourth stick of the group 40-42 (two light parallel sticks and a translucent reddish one); seen on video frames 1285-1309

@@ -5,6 +5,7 @@ import hashlib
 import json
 import time
 from dataclasses import asdict, dataclass, field
+from pathlib import Path
 
 import numpy as np
 
@@ -23,14 +24,35 @@ class CountConfig:
     lines_pct: tuple = (20.0, 80.0)
     sweep_pct: tuple = ()         # extra counting lines for the line-position study
     end_window_s: float = 0.5     # window at the video end for the storage estimate
+    roi_margin_rel: float | None = None  # keep box centres on the water surface (see surface_band); None = off
 
     def key(self) -> str:
         d = asdict(self)
+        if d["roi_margin_rel"] is None:  # keys of configurations without ROI are unchanged
+            del d["roi_margin_rel"]
         txt = json.dumps(d, sort_keys=True)
         nms = "none" if self.nms_iou is None else f"{self.nms_iou:g}"
         short = (f"c{self.conf:g}_n{nms}_t{self.trk_iou:g}_h{self.min_hits}"
                  f"_a{self.max_age_s:g}_m{self.min_area:g}")
+        if self.roi_margin_rel is not None:
+            short += f"_r{self.roi_margin_rel:g}"
         return f"{short}_{hashlib.sha1(txt.encode()).hexdigest()[:6]}"
+
+
+def surface_band(margin_rel: float) -> tuple[np.ndarray, np.ndarray]:
+    """Linear far-wall (top) and near-wall (bottom) image rows of the water surface.
+
+    The bed-wall junction lines of the calibration (results/calibration.json) are
+    fitted as y = a + b x and widened on each side by margin_rel times the local
+    bed width. Box centres outside the band lie on the glass side walls, where the
+    detectors see reflections of pieces floating along the walls.
+    """
+    cal = json.loads((Path(__file__).resolve().parents[1] / "results" / "calibration.json").read_text(encoding="utf-8"))
+    x = np.array([p["x"] for p in cal["bed_lines_px"]], float)
+    top = np.polyfit(x, [p["top"] for p in cal["bed_lines_px"]], 1)
+    bot = np.polyfit(x, [p["bottom"] for p in cal["bed_lines_px"]], 1)
+    width = bot - top
+    return top - margin_rel * width, bot + margin_rel * width
 
 
 def nms(boxes: np.ndarray, scores: np.ndarray, iou_thr: float) -> np.ndarray:
@@ -53,8 +75,11 @@ def nms(boxes: np.ndarray, scores: np.ndarray, iou_thr: float) -> np.ndarray:
     return np.array(keep, dtype=int)
 
 
-def postprocess(boxes: np.ndarray, scores: np.ndarray, cfg: CountConfig) -> list[tuple]:
+def postprocess(boxes: np.ndarray, scores: np.ndarray, cfg: CountConfig, band=None) -> list[tuple]:
     keep = scores >= cfg.conf
+    if band is not None and len(boxes):
+        cx, cy = (boxes[:, 0] + boxes[:, 2]) / 2, (boxes[:, 1] + boxes[:, 3]) / 2
+        keep &= (cy >= np.polyval(band[0], cx)) & (cy <= np.polyval(band[1], cx))
     boxes, scores = boxes[keep], scores[keep]
     if cfg.nms_iou is not None and len(boxes):
         k = nms(boxes, scores, cfg.nms_iou)
@@ -105,13 +130,14 @@ def run(dets: Detections, cfg: CountConfig, keep_tracks: bool = False) -> dict:
     sweep_lines = [LineCounter(f"S{p:g}", int(width * p / 100.0)) for p in cfg.sweep_pct]
     lines = main_lines + sweep_lines
     x_l1, x_l2 = main_lines[0].x, main_lines[-1].x
+    band = surface_band(cfg.roi_margin_rel) if cfg.roi_margin_rel is not None else None
 
     traj: dict[int, list] = {}      # track id -> [(frame, cx, cy)] for every update
     zone_counts = np.zeros((dets.n_frames, 3), dtype=np.int16)  # upstream, between, downstream
     n_det_total = 0
     for f in range(dets.n_frames):
         b, s, _ = dets.frame(f)
-        boxes = postprocess(b, s, cfg)
+        boxes = postprocess(b, s, cfg, band)
         n_det_total += len(boxes)
         if boxes:
             cx = np.array([(x1 + x2) / 2 for x1, _, x2, _ in boxes])

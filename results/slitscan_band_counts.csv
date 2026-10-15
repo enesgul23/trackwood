@@ -1,0 +1,3 @@
+video,line,N_released,count_sure,count_uncertain,method,notes
+1040,L1,10,10,0,band images without point marks,first test of the slit-scan count
+5040,L1,50,49,1,band images without point marks,four bands of 5 + 1 uncertain / 23 / 12 / 9

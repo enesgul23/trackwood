@@ -61,6 +61,72 @@ d = 2–40 px (`results/deadzone_model.json`, `figures/fig_deadzone_model.pdf`).
 higher frame rate or a finer resolution therefore increases the loss: a dead band must
 be replaced by a last-non-zero-side rule, not tuned.
 
+### Outlet line L2: visual reference and validation
+
+> **Provisional.** The L2 reference below was counted by an AI assistant (Claude) on
+> slit-scan images and checked against the video frames. It must be verified by a
+> human counter before publication. Every counted piece is listed with its position in
+> `results/slitscan_points.csv` and marked on the images that
+> `scripts/mark_slitscan_counts.py` writes, so the check takes one image per run.
+
+N is known only at the inlet: pieces held by the spur were not counted. The number
+passing L2 was therefore counted on **slit-scan images** (`scripts/make_slitscan.py`):
+the 3-px column at the line from every frame, side by side, so that each crossing piece
+leaves one streak, independent of any detector. Unclear streaks were checked on the
+video frames.
+
+* **Procedure check at L1, where the true count is N:** 10/10, 49.5/50 and 80/80
+  (140 pieces, RMS relative error 0.6 %).
+* **Reference at L2:** 670 pieces in 16 runs, 6 of them uncertain (each counted as ½).
+  The blind first pass gave 667. Three pieces were added after the comparison with the
+  detector crossings, each confirmed on the video.
+* **Trapping efficiency of the spur, R = 1 − N_L2/N:** 0.49 pooled over the
+  independent runs (mean 0.48 ± 0.06). Q40 gives 0.49 and Q60 gives 0.46 (Mann–Whitney
+  p = 0.27). There is no trend with N (Spearman ρ = 0.39, p = 0.16). Both are listed in
+  `results/l2_reference.csv`.
+
+Detector counts at L2 against this reference, 15 independent runs, corrected rule
+(`scripts/validate_L2.py`, `results/l2_validation.json`, `figures/fig_l2_validation.pdf`):
+
+| Detector | L2 MAPE, nominal | L2 MAPE, with ROI | Limits of agreement (ROI) | L1 MAPE (ROI) |
+| --- | --- | --- | --- | --- |
+| RF-DETR (original) | 5.7 % | 4.5 % | −11.4 / +14.0 % | 3.2 % |
+| RF-DETR (retrained) | 4.1 % | 2.6 % | −11.2 / +9.4 % | 3.2 % |
+| RF-DETR (blocked split) | 5.1 % | 4.3 % | −11.8 / +13.6 % | 3.6 % |
+| YOLO11n (same images) | 3.9 % | 3.3 % | −8.2 / +12.8 % | 3.3 % |
+| YOLO11s (same images) | 2.3 % | 1.4 % | −3.2 / +5.2 % | 2.6 % |
+| YOLO11m (same images) | 1.5 % | 1.1 % | −4.2 / +3.2 % | 2.2 % |
+| YOLO11m (blocked split) | 1.5 % | 1.4 % | −4.9 / +4.5 % | 2.2 % |
+| YOLO11n (original) | 20.3 % | 20.3 % | −46.9 / +8.0 % | 17.8 % |
+| Original counting rule (any detector) | 36–43 % | – | – | – |
+
+* **Reflections on the glass side walls.** Matching every detector crossing to a
+  visually counted piece (`scripts/match_L2_crossings.py`) shows that pieces floating
+  along a wall are also detected as their reflection in the glass and are counted
+  twice. This accounts for 11 of the 38 extra RF-DETR crossings and 6 of the 18 extra
+  YOLO11m crossings over all runs.
+* **Water-surface ROI.** A region of interest removes these reflections. It keeps box
+  centres between the bed-wall junction lines of the calibration, widened by
+  1.5 % of the bed width on each side (k + U(k), not tuned on the counts). This lowers
+  the L2 error of every retrained detector and leaves L1 unchanged or slightly better.
+  Margins of 0.75–3 % give the same counts; a margin of 0 removes real pieces at the
+  walls.
+* **Event-level agreement with ROI (all 16 runs):**
+
+  | Detector | Recall | Precision |
+  | --- | --- | --- |
+  | RF-DETR (original) | 97.6 % | 96.1 % |
+  | RF-DETR (retrained) | 97.6 % | 97.3 % |
+  | YOLO11m | 96.7 % | 98.3 % |
+
+  Misses (merged parallel sticks in dense groups) and extra counts (track fragmentation)
+  partly cancel in the count. A count error is therefore a lower bound on the event
+  error.
+* **RF-DETR vs YOLO11m at L2.** RF-DETR counts slightly too many at L2; YOLO11m does
+  not. Original RF-DETR vs YOLO11m gives p = 0.02 uncorrected (Wilcoxon), which is not
+  significant after Holm correction over the 28 pairs. Retrained RF-DETR vs YOLO11m
+  gives p = 0.35.
+
 ## Measurement problem
 
 Wooden dowels are released upstream of a permeable spur dike in a laboratory flume and
@@ -114,6 +180,13 @@ python scripts/extract_detections.py --detector rfdetr_base_legacy
 python scripts/run_counting.py --detectors rfdetr_base_legacy yolo11n_legacy --grid nominal
 python scripts/run_counting.py --detectors rfdetr_base_legacy yolo11n_legacy --grid sensitivity
 python scripts/summarize_counting.py --detectors rfdetr_base_legacy yolo11n_legacy
+# L2 reference and validation
+python scripts/make_slitscan.py                          # slit-scan images of L1 and L2
+python scripts/make_slitscan_bands.py 5040 L2 1060 1480 --chunk 220 --scale 2.5   # enlarged views for counting
+python scripts/mark_slitscan_counts.py                   # marks results/slitscan_points.csv, totals
+python scripts/run_counting.py --detectors rfdetr_base_legacy yolo11m_random --grid nominal_roi
+python scripts/match_L2_crossings.py --detectors rfdetr_base_legacy yolo11m_random
+python scripts/validate_L2.py
 ```
 
 Detector definitions are in `configs/detectors.json`; tracking and counting
