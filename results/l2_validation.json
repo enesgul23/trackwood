@@ -1,5 +1,5 @@
 {
-  "counter": "Claude (AI-assisted visual count, provisional; to be checked by a human)",
+  "counter": "Claude (AI-assisted visual count); every mark checked on the marked images by one of the authors, no changes (2026-10-15)",
   "configs": {
     "nominal": "c0.25_n0.6_t0.3_h3_a2_m0_f87658",
     "nominal_roi": "c0.25_n0.6_t0.3_h3_a2_m0_r0.015_9f747c"

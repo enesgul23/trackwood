@@ -81,9 +81,9 @@ Comparison of the detectors: paired Wilcoxon signed-rank test on |C − N|/N ove
     first-pass count is reported with the adjudicated one (after the comparison with
     the detector crossings, every change confirmed on the video). This gives
     R_ref = 1 − N_L2/N with u(R) = u(N_L2)/N.
-    **Status:** counted by an AI assistant; a human must verify it on the marked images
-    before submission. A second independent human count would give the inter-counter
-    agreement.
+    **Status:** counted by an AI assistant; one of the authors checked every mark on the
+    marked images and confirmed them without changes (2026-10-15). A second independent
+    count by another person, for the inter-counter agreement, is still open.
 14. **Validation at L2.** Detector counts against the reference (agreement statistics,
     paired Wilcoxon with Holm correction). One-to-one matching of crossing events to
     counted pieces (Hungarian assignment in frame and row) gives event-level recall and

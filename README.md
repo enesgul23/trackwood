@@ -63,11 +63,13 @@ be replaced by a last-non-zero-side rule, not tuned.
 
 ### Outlet line L2: visual reference and validation
 
-> **Provisional.** The L2 reference below was counted by an AI assistant (Claude) on
-> slit-scan images and checked against the video frames. It must be verified by a
-> human counter before publication. Every counted piece is listed with its position in
+> **AI count, verified by a human.** The L2 reference below was counted by an AI
+> assistant (Claude) on slit-scan images and checked against the video frames. One of
+> the authors then inspected the marked image of every run and confirmed all marks
+> without changes (2026-10-15). A second, independent count by another person has not
+> been made. Every counted piece is listed with its position in
 > `results/slitscan_points.csv` and marked on the images that
-> `scripts/mark_slitscan_counts.py` writes, so the check takes one image per run.
+> `scripts/mark_slitscan_counts.py` writes.
 
 N is known only at the inlet: pieces held by the spur were not counted. The number
 passing L2 was therefore counted on **slit-scan images** (`scripts/make_slitscan.py`):
