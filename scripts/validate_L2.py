@@ -48,8 +48,9 @@ GRIDS = json.loads(GRID_FILE.read_text(encoding="utf-8"))
 
 RES = config.REPO / "results"
 TRAINING_VIDEO = "20040"
-COUNTER = ("Claude (AI-assisted visual count); every mark checked on the marked images "
-           "by one of the authors, no changes (2026-10-15)")
+COUNTER = ("Claude (AI-assisted visual count); every mark checked on the marked images by "
+           "one of the authors (2026-10-15): all certain marks confirmed, of the 6 uncertain "
+           "marks 5 confirmed and 1 rejected")
 
 
 def read(name: str) -> list[dict]:

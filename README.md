@@ -65,9 +65,11 @@ be replaced by a last-non-zero-side rule, not tuned.
 
 > **AI count, verified by a human.** The L2 reference below was counted by an AI
 > assistant (Claude) on slit-scan images and checked against the video frames. One of
-> the authors then inspected the marked image of every run and confirmed all marks
-> without changes (2026-10-15). A second, independent count by another person has not
-> been made. Every counted piece is listed with its position in
+> the authors then inspected the marked image of every run (2026-10-15): all red
+> (certain) marks were confirmed without changes, and of the six magenta (uncertain)
+> marks, four in run 20040 and two in run 20060, five were confirmed and one (20040,
+> piece 49) was rejected. A second, independent count by another person has not been
+> made. Every counted piece is listed with its position in
 > `results/slitscan_points.csv` and marked on the images that
 > `scripts/mark_slitscan_counts.py` writes.
 
@@ -79,12 +81,15 @@ video frames.
 
 * **Procedure check at L1, where the true count is N:** 10/10, 49.5/50 and 80/80
   (140 pieces, RMS relative error 0.6 %).
-* **Reference at L2:** 670 pieces in 16 runs, 6 of them uncertain (each counted as ½).
-  The blind first pass gave 667. Three pieces were added after the comparison with the
-  detector crossings, each confirmed on the video.
+* **Reference at L2:** 672 pieces in 16 runs. Six streaks were first marked uncertain;
+  on the author's check five were confirmed and one was rejected, so no uncertain
+  pieces remain (the rejected point stays in `results/slitscan_points.csv` with
+  certainty `rejected` and is not counted). The blind first pass, with these decisions,
+  gives 669. Three pieces were added after the comparison with the detector crossings,
+  each confirmed on the video.
 * **Trapping efficiency of the spur, R = 1 − N_L2/N:** 0.49 pooled over the
   independent runs (mean 0.48 ± 0.06). Q40 gives 0.49 and Q60 gives 0.46 (Mann–Whitney
-  p = 0.27). There is no trend with N (Spearman ρ = 0.39, p = 0.16). Both are listed in
+  p = 0.27). There is no trend with N (Spearman ρ = 0.37, p = 0.17). Both are listed in
   `results/l2_reference.csv`.
 
 Detector counts at L2 against this reference, 15 independent runs, corrected rule
@@ -92,21 +97,22 @@ Detector counts at L2 against this reference, 15 independent runs, corrected rul
 
 | Detector | L2 MAPE, nominal | L2 MAPE, with ROI | Limits of agreement (ROI) | L1 MAPE (ROI) |
 | --- | --- | --- | --- | --- |
-| RF-DETR (original) | 5.7 % | 4.5 % | −11.4 / +14.0 % | 3.2 % |
-| RF-DETR (retrained) | 4.1 % | 2.6 % | −11.2 / +9.4 % | 3.2 % |
-| RF-DETR (blocked split) | 5.1 % | 4.3 % | −11.8 / +13.6 % | 3.6 % |
-| YOLO11n (same images) | 3.9 % | 3.3 % | −8.2 / +12.8 % | 3.3 % |
-| YOLO11s (same images) | 2.3 % | 1.4 % | −3.2 / +5.2 % | 2.6 % |
-| YOLO11m (same images) | 1.5 % | 1.1 % | −4.2 / +3.2 % | 2.2 % |
-| YOLO11m (blocked split) | 1.5 % | 1.4 % | −4.9 / +4.5 % | 2.2 % |
-| YOLO11n (original) | 20.3 % | 20.3 % | −46.9 / +8.0 % | 17.8 % |
+| RF-DETR (original) | 5.7 % | 4.5 % | −11.5 / +13.9 % | 3.2 % |
+| RF-DETR (retrained) | 4.0 % | 2.6 % | −11.2 / +9.4 % | 3.2 % |
+| RF-DETR (blocked split) | 5.0 % | 4.2 % | −11.8 / +13.5 % | 3.6 % |
+| YOLO11n (same images) | 3.8 % | 3.3 % | −8.3 / +12.8 % | 3.3 % |
+| YOLO11s (same images) | 2.2 % | 1.5 % | −3.3 / +5.2 % | 2.6 % |
+| YOLO11m (same images) | 1.6 % | 1.2 % | −4.5 / +3.4 % | 2.2 % |
+| YOLO11m (blocked split) | 1.5 % | 1.5 % | −5.2 / +4.7 % | 2.2 % |
+| YOLO11n (original) | 20.3 % | 20.3 % | −46.9 / +7.9 % | 17.8 % |
 | Original counting rule (any detector) | 36–43 % | – | – | – |
 
 * **Reflections on the glass side walls.** Matching every detector crossing to a
   visually counted piece (`scripts/match_L2_crossings.py`) shows that pieces floating
   along a wall are also detected as their reflection in the glass and are counted
-  twice. This accounts for 11 of the 38 extra RF-DETR crossings and 6 of the 18 extra
-  YOLO11m crossings over all runs.
+  twice. This accounts for 11 of the 30 extra RF-DETR crossings and 7 of the 13 extra
+  YOLO11m crossings over all runs. The matching gates pairs by distance before the
+  assignment, so a far pair cannot displace near ones.
 * **Water-surface ROI.** A region of interest removes these reflections. It keeps box
   centres between the bed-wall junction lines of the calibration, widened by
   1.5 % of the bed width on each side (k + U(k), not tuned on the counts). This lowers
@@ -117,9 +123,9 @@ Detector counts at L2 against this reference, 15 independent runs, corrected rul
 
   | Detector | Recall | Precision |
   | --- | --- | --- |
-  | RF-DETR (original) | 97.6 % | 96.1 % |
-  | RF-DETR (retrained) | 97.6 % | 97.3 % |
-  | YOLO11m | 96.7 % | 98.3 % |
+  | RF-DETR (original) | 99.0 % | 97.2 % |
+  | RF-DETR (retrained) | 98.7 % | 98.2 % |
+  | YOLO11m | 97.6 % | 99.1 % |
 
   Misses (merged parallel sticks in dense groups) and extra counts (track fragmentation)
   partly cancel in the count. A count error is therefore a lower bound on the event

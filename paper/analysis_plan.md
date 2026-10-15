@@ -81,14 +81,16 @@ Comparison of the detectors: paired Wilcoxon signed-rank test on |C − N|/N ove
     first-pass count is reported with the adjudicated one (after the comparison with
     the detector crossings, every change confirmed on the video). This gives
     R_ref = 1 − N_L2/N with u(R) = u(N_L2)/N.
-    **Status:** counted by an AI assistant; one of the authors checked every mark on the
-    marked images and confirmed them without changes (2026-10-15). A second independent
-    count by another person, for the inter-counter agreement, is still open.
+    **Status:** counted by an AI assistant; one of the authors checked the marked images
+    (2026-10-15): every certain mark was confirmed without changes, and of the six
+    uncertain marks (four in 20040, two in 20060) five were confirmed and one was
+    rejected, so no uncertain pieces remain. A second independent count by another
+    person, for the inter-counter agreement, is still open.
 14. **Validation at L2.** Detector counts against the reference (agreement statistics,
     paired Wilcoxon with Holm correction). One-to-one matching of crossing events to
-    counted pieces (Hungarian assignment in frame and row) gives event-level recall and
-    precision and classifies the errors: misses, extra counts, and reflections on the
-    glass walls.
+    counted pieces (Hungarian assignment in frame and row, with the distance gate applied
+    before the assignment) gives event-level recall and precision and classifies the
+    errors: misses, extra counts, and reflections on the glass walls.
 15. **Water-surface ROI (post hoc, physically defined).** Detections are kept only when
     their box centre lies between the bed-wall junction lines widened by 1.5 % of the
     bed width (k + U(k) from item 10). This was motivated by the reflections found in

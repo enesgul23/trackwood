@@ -3,8 +3,9 @@
 For every run, the confirmed-track crossings of L2 (corrected rule, nominal
 configuration) are taken with their frame and the row of the box centre, and are
 assigned one-to-one to the visual points in results/slitscan_points.csv (Hungarian
-assignment, cost = sqrt((df / 15)^2 + (drow / 40)^2), accepted up to MAX_COST; a
-visual point marks some position on the streak, so the tolerance is a streak size).
+assignment, cost = sqrt((df / 15)^2 + (drow / 40)^2), pairs allowed up to MAX_COST and
+gated before the assignment; a visual point marks some position on the streak, so the
+tolerance is a streak size).
 Unassigned detector crossings are extra counts (double counts or pieces missed by
 the visual count); unassigned visual points are pieces the detector did not count.
 Unassigned detector crossings whose box centre lies on the glass side walls (outside
@@ -36,6 +37,7 @@ from run_counting import load_grid  # noqa: E402
 
 Y0 = 0.24          # first channel row of the slit-scan (fraction of frame height), as in make_slitscan.py
 SF, SR, MAX_COST = 15.0, 40.0, 2.5
+GATE_PENALTY = 1e6  # cost of a forbidden pair; larger than any sum of allowed costs
 MARGIN = 60
 
 
@@ -60,7 +62,12 @@ def match(task) -> tuple[dict, list[dict]]:
     P = np.array([(p[0], p[1]) for p in pts], float).reshape(-1, 2)
     E = np.array([(e[0], e[1]) for e in ev], float).reshape(-1, 2)
     cost = np.hypot((P[:, None, 0] - E[None, :, 0]) / SF, (P[:, None, 1] - E[None, :, 1]) / SR)
-    ri, ci = linear_sum_assignment(cost) if cost.size else (np.array([], int), np.array([], int))
+    # Gate before assigning: pairs beyond MAX_COST are forbidden, so the assignment first
+    # maximises the number of matches within the tolerance and only then minimises their
+    # cost (assigning on the raw cost and gating afterwards lets one far pair displace
+    # several near ones).
+    gated = np.where(cost <= MAX_COST, cost, GATE_PENALTY)
+    ri, ci = linear_sum_assignment(gated) if cost.size else (np.array([], int), np.array([], int))
     ok = cost[ri, ci] <= MAX_COST
     mp, me = set(ri[ok]), set(ci[ok])
     events = []
@@ -117,7 +124,7 @@ def main() -> None:
     pts = defaultdict(list)
     with open(config.REPO / "results" / "slitscan_points.csv", encoding="utf-8") as f:
         for r in csv.DictReader(f):
-            if r["line"] == "L2":
+            if r["line"] == "L2" and r["certainty"] != "rejected":
                 pts[r["video"]].append((int(r["frame"]), int(r["row"]), int(r["piece"])))
     tasks = [(d, v, p, g) for g in args.grids for d in args.detectors
              for v, p in sorted(pts.items(), key=lambda kv: (len(kv[0]), kv[0]))]

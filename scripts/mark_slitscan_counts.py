@@ -7,7 +7,9 @@ person can check the count on one image: every streak should carry exactly one
 marker. Totals per video and line go to results/slitscan_counts.csv. Points whose note
 starts with "audit:" were added after the comparison with the detector crossings
 (scripts/match_L2_crossings.py) and confirmed on the video; the blind count (first
-pass, before any comparison) is reported separately.
+pass, before any comparison) is reported separately. Points with certainty "rejected"
+(uncertain points that a human checker ruled out) stay in the file for the record but
+are not drawn or counted.
 
     python scripts/mark_slitscan_counts.py
 """
@@ -37,7 +39,8 @@ def main() -> None:
     pts = defaultdict(list)
     with open(ROOT / "results" / "slitscan_points.csv", encoding="utf-8") as f:
         for r in csv.DictReader(f):
-            pts[(r["video"], r["line"])].append(r)
+            if r["certainty"] != "rejected":
+                pts[(r["video"], r["line"])].append(r)
     rows = []
     for (vid, ln), ps in sorted(pts.items(), key=lambda k: (k[0][1], len(k[0][0]), k[0][0])):
         img = cv2.imread(str(src / f"{vid}_{ln}.jpg"))[40:-40]

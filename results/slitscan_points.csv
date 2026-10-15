@@ -468,12 +468,12 @@ video,line,piece,frame,row,certainty,note
 20040,L2,9,1127,1060,sure,checked on video frames 1100-1130
 20040,L2,10,1066,1053,sure,checked on video frames 1070-1100
 20040,L2,11,1085,1100,sure,reddish; checked on video frames 1070-1130
-20040,L2,12,1090,1120,uncertain,second reddish stick of an overlapping pair; checked on video frames 1070-1130
+20040,L2,12,1090,1120,sure,second reddish stick of an overlapping pair; checked on video frames 1070-1130; author check 2026-10-15: confirmed
 20040,L2,13,1055,1160,sure,reddish; checked on video frames 1050-1070
 20040,L2,14,1103,1150,sure,checked on video frames 1100-1130
 20040,L2,15,1178,775,sure,checked on video frame 1195
 20040,L2,16,1193,978,sure,checked on video frame 1195
-20040,L2,17,1205,960,uncertain,dark submerged stick next to 18 (could be its shadow); video frames 1195-1225
+20040,L2,17,1205,960,sure,dark submerged stick next to 18 (could be its shadow); video frames 1195-1225; author check 2026-10-15: confirmed
 20040,L2,18,1207,1000,sure,checked on video frames 1195-1225
 20040,L2,19,1224,1000,sure,checked on video frame 1225
 20040,L2,20,1173,1060,sure,dark pair; checked on video frame 1130
@@ -505,7 +505,7 @@ video,line,piece,frame,row,certainty,note
 20040,L2,46,1394,1055,sure,three stacked sticks; checked on video frame 1390
 20040,L2,47,1340,1091,sure,checked on video frame 1350
 20040,L2,48,1342,1110,sure,checked on video frames 1350-1370
-20040,L2,49,1345,1125,uncertain,possible second stick under 48; video frames 1350-1370
+20040,L2,49,1345,1125,rejected,"possible second stick under 48; video frames 1350-1370; author check 2026-10-15: rejected, not a separate piece"
 20040,L2,50,1384,1140,sure,reddish; checked on video frame 1350
 20040,L2,51,1482,806,sure,
 20040,L2,52,1470,843,sure,
@@ -517,7 +517,7 @@ video,line,piece,frame,row,certainty,note
 20040,L2,58,1437,1018,sure,checked on video frame 1460
 20040,L2,59,1499,990,sure,thin translucent pair; checked on video frames 1490-1535
 20040,L2,60,1503,1000,sure,thin translucent pair; checked on video frames 1490-1535
-20040,L2,61,1511,1040,uncertain,third thin translucent stick; video frames 1490-1535
+20040,L2,61,1511,1040,sure,third thin translucent stick; video frames 1490-1535; author check 2026-10-15: confirmed
 20040,L2,62,1491,1010,sure,
 20040,L2,63,1468,1148,sure,dark thin stick
 20040,L2,64,1473,1215,sure,dark thin stick
@@ -637,14 +637,14 @@ video,line,piece,frame,row,certainty,note
 20060,L2,78,1527,980,sure,dark stick; group of six; checked on video frames 1480-1530
 20060,L2,79,1502,1100,sure,checked on video frames 1460-1500
 20060,L2,80,1486,1110,sure,checked on video frames 1460-1500
-20060,L2,81,1490,1125,uncertain,possible reddish stick under the previous one
+20060,L2,81,1490,1125,sure,possible reddish stick under the previous one; author check 2026-10-15: confirmed
 20060,L2,82,1450,1115,sure,checked on video frame 1440
 20060,L2,83,1444,1140,sure,reddish; checked on video frame 1440
 20060,L2,84,1565,790,sure,reddish pair; checked on video frames 1535-1595
 20060,L2,85,1578,800,sure,reddish pair; checked on video frames 1535-1595
 20060,L2,86,1545,835,sure,reddish stack; checked on video frames 1535-1595
 20060,L2,87,1550,850,sure,reddish stack; checked on video frames 1535-1595
-20060,L2,88,1555,842,uncertain,possible third stick of the reddish stack
+20060,L2,88,1555,842,sure,possible third stick of the reddish stack; author check 2026-10-15: confirmed
 20060,L2,89,1532,900,sure,checked on video frames 1535-1555
 20060,L2,90,1577,887,sure,checked on video frames 1535-1555
 20060,L2,91,1557,965,sure,checked on video frames 1535-1555
