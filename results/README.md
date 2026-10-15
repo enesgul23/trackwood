@@ -8,6 +8,10 @@ All files are produced by the scripts; do not edit by hand.
 | `dataset_splits.json` | Image and box counts of the random and blocked detector splits | `prepare_datasets.py` |
 | `detector_eval.json` | COCO AP, operating-point precision/recall/F1, PR and F1–confidence curves, latency per detector and split | `eval_detectors.py` |
 | `latency.json` | Detector latency on a real 4K frame, idle GPU | `measure_latency.py` |
+| `calibration.json` | Bed-wall lines, bed-width fit and pixel scale at L1/L2 for B = 1.2 m | `calibrate.py` |
+| `crossings_L1.csv` | Every L1 crossing: step per update, surface velocity, dead-zone hit, counted by the original rule | `physical_analysis.py` |
+| `physical_summary.csv` | Per run and detector: velocity median/IQR, T90, mean and peak flux, observed vs predicted dead-zone loss | `physical_analysis.py` |
+| `deadzone_model.json` | Validation of P(miss) = min(1, w/d): pooled and per-detector bins, per-run agreement | `physical_analysis.py` |
 | `counting_runs.csv` | One row per detector × processing configuration × run: L1/L2 counts with the original and corrected rules, track statistics, wood between the lines at the end | `run_counting.py`, `summarize_counting.py` |
 | `counting_accuracy.csv` | Agreement with N per detector × configuration × count estimator × run subset (all 16 runs, 15 independent runs): bias, MAPE, Bland–Altman limits, CCC, bootstrap 95 % intervals, leave-one-run-out calibration | `summarize_counting.py` |
 | `sensitivity_oat.csv` | Counting efficiency when one processing parameter is varied around the nominal value | `summarize_counting.py` |

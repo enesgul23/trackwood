@@ -262,6 +262,86 @@ def fig_ap_vs_mape(detectors):
     save(fig, "fig_ap_vs_counting_error")
 
 
+def fig_deadzone():
+    """Dead-zone model: binned observed loss vs step, per-run check, design curves."""
+    dz = json.loads((RES / "deadzone_model.json").read_text(encoding="utf-8"))
+    summ = read_csv("physical_summary.csv")
+    w = dz["zone_width_px"]
+    fig, axes = plt.subplots(1, 3, figsize=(190 * MM, 62 * MM))
+    ax = axes[0]
+    dd = np.linspace(1, 60, 400)
+    ax.plot(dd, np.minimum(1, w / dd), color="k", lw=1.0, label=r"$P=\min(1, w/d)$")
+    for b in dz["pooled"]["bins"]:
+        ax.errorbar(b["d_median"], b["observed_in_zone"], yerr=b["ci95_half"], fmt="o", ms=3.5,
+                    color="#1f5fbf", ecolor="#1f5fbf", elinewidth=0.8, capsize=1.5)
+    ax.scatter([], [], color="#1f5fbf", s=10, label=f"observed (n = {dz['pooled']['n_crossings']})")
+    ax.set(xscale="log", xlabel="Centre advance per update at L1, $d$ (px)", ylabel="Fraction missed by the original rule",
+           ylim=(0, 1.05))
+    ax.set_xticks([2, 3, 5, 10, 20, 50])
+    ax.set_xticklabels(["2", "3", "5", "10", "20", "50"])
+    ax.minorticks_off()
+    ax.legend(frameon=False, fontsize=6, loc="upper right")
+    ax.set_title("(a)", loc="left")
+    ax = axes[1]
+    short = {"rfdetr_base_legacy": "RF-DETR orig.", "rfdetr_base_random": "RF-DETR retr.",
+             "yolo11m_random": "YOLO11m", "yolo11n_legacy": "YOLO11n orig."}
+    for d in sorted({r["detector"] for r in summ}):
+        sel = [r for r in summ if r["detector"] == d]
+        ax.scatter([float(r["loss_predicted"]) for r in sel], [float(r["loss_observed"]) for r in sel],
+                   s=12, marker=mk(d), color=col(d), label=short.get(d, LABEL.get(d, d)))
+    ax.plot([0.3, 0.75], [0.3, 0.75], color="0.5", lw=0.6, ls="--")
+    ax.set(xlim=(0.3, 0.75), ylim=(0.3, 0.75), xlabel="Predicted loss per run", ylabel="Observed loss per run")
+    ax.set_aspect("equal")
+    ax.legend(frameon=False, fontsize=5.5, loc="lower right", handletextpad=0.2, borderaxespad=0.3)
+    ax.set_title("(b)", loc="left")
+    ax = axes[2]
+    s = dz["scale_L1_m_per_px"]
+    v = np.linspace(0.05, 2.0, 400)
+    for f, ls, c in ((25, ":", "0.15"), (30, "-.", "0.15"), (60, "--", "0.15"), (119.88, "-", "#1f5fbf"), (240, "-", "0.6")):
+        ax.plot(v, np.minimum(1, w * s * f / v), color=c, lw=1.0, ls=ls, label=f"{f:g} fps")
+    ax.axvspan(0.48, 0.60, color="0.88", zorder=0)
+    ax.text(0.54, 0.72, "this\nstudy", ha="center", va="center", fontsize=6)
+    ax.set(xlabel="Surface velocity $v$ (m/s)", ylabel=r"Loss $P = \min(1, w\,s\,f / v)$", ylim=(0, 1.05), xlim=(0, 2))
+    ax.legend(frameon=False, fontsize=6, loc="upper right")
+    ax.set_title(f"(c)  w = {w:g} px, s = {s * 1000:.2f} mm/px", loc="left", fontsize=7)
+    fig.subplots_adjust(wspace=0.42)
+    save(fig, "fig_deadzone_model")
+
+
+def fig_velocity_flux(detectors):
+    summ = [r for r in read_csv("physical_summary.csv") if r["detector"] in detectors]
+    fig, axes = plt.subplots(1, 2, figsize=(190 * MM, 62 * MM))
+    for d in detectors:
+        sel = [r for r in summ if r["detector"] == d]
+        if not sel:
+            continue
+        off = -0.03 if family(d) == "rfdetr" else 0.03
+        for q, mfc in ((40, "white"), (60, col(d))):
+            ss = [r for r in sel if int(r["Q"]) == q]
+            N = np.array([int(r["N"]) for r in ss]) * (1 + off)
+            vm = np.array([float(r["v_median_m_s"]) for r in ss])
+            lo = vm - np.array([float(r["v_q25"]) for r in ss])
+            hi = np.array([float(r["v_q75"]) for r in ss]) - vm
+            axes[0].errorbar(N, vm, yerr=[lo, hi], fmt=mk(d), ms=4, mfc=mfc, color=col(d), elinewidth=0.7, capsize=1.5,
+                             label=f"{LABEL.get(d, d)}, Q{q}")
+            axes[1].scatter(N, [float(r["flux_mean_per_s"]) for r in ss], marker=mk(d), s=16, facecolor=mfc,
+                            edgecolor=col(d), label=f"{LABEL.get(d, d)}, Q{q}")
+    for ax in axes:
+        ax.set(xscale="log", xlabel="Pieces released, $N$")
+        ax.set_xticks([10, 20, 50, 100, 200])
+        ax.set_xticklabels(["10", "20", "50", "100", "200"])
+        ax.minorticks_off()
+    axes[0].set_ylabel("Wood surface velocity at L1 (m/s)\n"
+                       "median and inter-quartile range")
+    axes[1].set_ylabel(r"Mean flux at L1, $0.9\,C/T_{90}$ (pieces/s)")
+    h, lab = axes[0].get_legend_handles_labels()
+    fig.legend(h, lab, frameon=False, fontsize=6, ncol=4, loc="upper center", bbox_to_anchor=(0.5, -0.07))
+    axes[0].set_title("(a)", loc="left")
+    axes[1].set_title("(b)", loc="left")
+    fig.subplots_adjust(wspace=0.35)
+    save(fig, "fig_velocity_flux")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--main", nargs="+", required=True, help="detectors shown in the detailed figures")
@@ -274,6 +354,9 @@ def main() -> None:
     fig_sensitivity(dets)
     fig_line_profile(dets)
     fig_trapping(dets)
+    if (RES / "deadzone_model.json").exists():
+        fig_deadzone()
+        fig_velocity_flux(dets)
     if args.all:
         fig_forest(args.all)
         if (RES / "detector_eval.json").exists():

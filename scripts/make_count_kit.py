@@ -47,6 +47,8 @@ def main() -> None:
         x1, x2 = int(W * 0.20), int(W * 0.80)
         crop = f[int(H * Y0):int(H * Y1), x1:x2].copy()
         h, w = crop.shape[:2]
+        # single full-resolution crop between L1 (left edge) and L2 (right edge), for sayac.html
+        cv2.imwrite(str(out / f"{vp.stem}_sayim.jpg"), crop, [cv2.IMWRITE_JPEG_QUALITY, 95])
         for name, tile in (("A_left", crop[:, : w // 2 + 100]), ("B_right", crop[:, w // 2 - 100:])):
             cv2.imwrite(str(out / f"{vp.stem}_{name}.jpg"), tile, [cv2.IMWRITE_JPEG_QUALITY, 95])
         overview = f.copy()
@@ -65,6 +67,7 @@ def main() -> None:
         w.writerows(rows)
     (out / "README.txt").write_text(
         "Elle sayim seti (son kare)\n"
+        "Onerilen yol: sayac.html dosyasini tarayicida acin ve {video}_sayim.jpg goruntulerini yukleyin.\n"
         "Her video icin: {video}_overview.jpg sari cizgiler L1 (%20) ve L2 (%80);\n"
         "{video}_A_left.jpg ve {video}_B_right.jpg iki hat arasindaki kanalin tam cozunurluklu yarilari\n"
         "(ortada 100 piksellik ortusme var; ayni cubugu iki kez saymayin).\n"

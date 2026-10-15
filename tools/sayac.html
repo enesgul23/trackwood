@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Odun Sayacı</title>
+<style>
+  :root { --bg:#f6f6f4; --panel:#ffffff; --ink:#1d1d1b; --muted:#6b6b66; --line:#d9d9d4; --accent:#1f5fbf; --mark:#ff2d2d; }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  @media (max-width: 760px) { main { flex-direction: column; } aside { width: 100%; max-height: 30vh; } #stage { min-height: 60vh; } }
+  body { margin:0; font:14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; color:var(--ink); background:var(--bg); height:100vh; display:flex; flex-direction:column; }
+  header { display:flex; flex-wrap:wrap; gap:10px; align-items:center; padding:8px 12px; background:var(--panel); border-bottom:1px solid var(--line); }
+  header h1 { font-size:15px; margin:0 8px 0 0; }
+  header label { color:var(--muted); }
+  input[type=text] { padding:4px 6px; border:1px solid var(--line); border-radius:4px; width:90px; }
+  button { padding:5px 10px; border:1px solid var(--line); background:#fff; border-radius:4px; cursor:pointer; }
+  button.primary { background:var(--accent); color:#fff; border-color:var(--accent); }
+  main { flex:1; display:flex; min-height:0; }
+  aside { width:220px; background:var(--panel); border-right:1px solid var(--line); overflow:auto; }
+  aside .item { padding:6px 10px; border-bottom:1px solid var(--line); cursor:pointer; display:flex; justify-content:space-between; gap:6px; }
+  aside .item.active { background:#e8eef9; }
+  aside .item .n { color:var(--muted); font-variant-numeric:tabular-nums; }
+  aside .done { color:#1b8a3a; font-weight:600; }
+  #stage { flex:1; position:relative; overflow:hidden; background:#2b2b2b; }
+  canvas { position:absolute; inset:0; width:100%; height:100%; cursor:crosshair; }
+  #drop { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#ddd; text-align:center; padding:20px; }
+  #hud { position:absolute; left:10px; top:10px; background:rgba(0,0,0,.65); color:#fff; padding:6px 10px; border-radius:4px; font-variant-numeric:tabular-nums; }
+  #help { font-size:12px; color:var(--muted); padding:8px 10px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Odun Sayacı</h1>
+  <label>Sayan kişi <input id="counter" type="text" placeholder="baş harfler"></label>
+  <button id="open">Görüntü aç</button>
+  <input id="file" type="file" accept="image/*" multiple hidden>
+  <button id="undo">Geri al (Ctrl+Z)</button>
+  <button id="fit">Sığdır</button>
+  <label><input id="doneBox" type="checkbox"> Bu görüntü tamamlandı</label>
+  <button id="sumCsv" class="primary">Özet CSV indir</button>
+  <button id="ptsCsv">Koordinat CSV indir</button>
+</header>
+<main>
+  <aside>
+    <div id="list"></div>
+    <div id="help">
+      <b>Kullanım</b><br>
+      Sol tık: çubuk işaretle.<br>
+      İşarete sağ tık: sil.<br>
+      Sürükle: kaydır. Tekerlek: yakınlaştır.<br>
+      ← / →: önceki / sonraki görüntü.<br>
+      Her çubuğu bir kez, ortasına yakın işaretleyin. Üst üste binenler için yakınlaştırın.
+    </div>
+  </aside>
+  <div id="stage">
+    <canvas id="cv"></canvas>
+    <div id="drop">{video}_sayim.jpg görüntülerini buraya sürükleyin<br>ya da “Görüntü aç” düğmesini kullanın</div>
+    <div id="hud" hidden></div>
+  </div>
+</main>
+<script>
+(() => {
+  const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+  const stage = document.getElementById('stage'), hud = document.getElementById('hud');
+  const list = document.getElementById('list'), drop = document.getElementById('drop');
+  const counterIn = document.getElementById('counter'), doneBox = document.getElementById('doneBox');
+  const images = [];        // {name, video, N, img, marks:[[x,y]], done}
+  let cur = -1, scale = 1, ox = 0, oy = 0;
+  const store = {
+    get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+  counterIn.value = store.get('odun-sayaci-counter') || '';
+  counterIn.addEventListener('change', () => { store.set('odun-sayaci-counter', counterIn.value.trim()); images.forEach(restore); render(); renderList(); });
+
+  const key = im => `odun-sayaci:${counterIn.value.trim() || '-'}:${im.name}`;
+  function save(im) { store.set(key(im), { marks: im.marks, done: im.done }); }
+  function restore(im) { const s = store.get(key(im)); im.marks = s ? s.marks : []; im.done = s ? !!s.done : false; }
+
+  function parse(name) {
+    const m = name.match(/^(\d+)(\d{2})[_.]/);
+    return m ? { video: m[1] + m[2], N: parseInt(m[1], 10) } : { video: name.replace(/\.[^.]+$/, ''), N: '' };
+  }
+
+  function addFiles(files) {
+    [...files].filter(f => f.type.startsWith('image/')).forEach(f => {
+      const img = new Image();
+      img.onload = () => {
+        const p = parse(f.name);
+        const im = { name: f.name, video: p.video, N: p.N, img, marks: [], done: false };
+        restore(im);
+        images.push(im);
+        images.sort((a, b) => (a.N || 0) - (b.N || 0) || a.name.localeCompare(b.name));
+        if (cur < 0) select(images.indexOf(im)); else renderList();
+      };
+      img.src = URL.createObjectURL(f);
+    });
+  }
+  document.getElementById('open').onclick = () => document.getElementById('file').click();
+  document.getElementById('file').onchange = e => addFiles(e.target.files);
+  stage.addEventListener('dragover', e => e.preventDefault());
+  stage.addEventListener('drop', e => { e.preventDefault(); addFiles(e.dataTransfer.files); });
+
+  function select(i) { if (i < 0 || i >= images.length) return; cur = i; drop.hidden = true; hud.hidden = false; doneBox.checked = images[i].done; fit(); renderList(); }
+  function renderList() {
+    list.innerHTML = '';
+    images.forEach((im, i) => {
+      const d = document.createElement('div');
+      d.className = 'item' + (i === cur ? ' active' : '');
+      d.innerHTML = `<span>${im.video}${im.N !== '' ? ` <span class="n">(N=${im.N})</span>` : ''}</span><span class="n ${im.done ? 'done' : ''}">${im.marks.length}${im.done ? ' ✓' : ''}</span>`;
+      d.onclick = () => select(i);
+      list.appendChild(d);
+    });
+  }
+
+  function resize() { const r = stage.getBoundingClientRect(); cv.width = r.width * devicePixelRatio; cv.height = r.height * devicePixelRatio; render(); }
+  function fit() {
+    const im = images[cur]; if (!im) return;
+    const r = stage.getBoundingClientRect();
+    scale = Math.min(r.width / im.img.width, r.height / im.img.height);
+    ox = (r.width - im.img.width * scale) / 2; oy = (r.height - im.img.height * scale) / 2; render();
+  }
+  function render() {
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
+    const im = images[cur]; if (!im) return;
+    ctx.setTransform(devicePixelRatio * scale, 0, 0, devicePixelRatio * scale, devicePixelRatio * ox, devicePixelRatio * oy);
+    ctx.imageSmoothingEnabled = scale < 2;
+    ctx.drawImage(im.img, 0, 0);
+    const r = 9 / scale;
+    ctx.lineWidth = 2 / scale; ctx.font = `${12 / scale}px system-ui`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    im.marks.forEach(([x, y], k) => {
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,45,45,.35)'; ctx.fill(); ctx.strokeStyle = '#ff2d2d'; ctx.stroke();
+      ctx.fillStyle = '#fff'; ctx.fillText(String(k + 1), x, y - r - 7 / scale);
+    });
+    hud.textContent = `${im.video}${im.N !== '' ? `  N=${im.N}` : ''}  ·  işaretlenen: ${im.marks.length}  ·  ${Math.round(scale * 100)} %`;
+  }
+  const toImg = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left - ox) / scale, (e.clientY - r.top - oy) / scale]; };
+
+  let drag = null;
+  cv.addEventListener('mousedown', e => { if (e.button === 0) drag = { x: e.clientX, y: e.clientY, ox, oy, moved: false }; });
+  window.addEventListener('mousemove', e => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (Math.hypot(dx, dy) > 4) drag.moved = true;
+    if (drag.moved) { ox = drag.ox + dx; oy = drag.oy + dy; render(); }
+  });
+  window.addEventListener('mouseup', e => {
+    if (drag && !drag.moved && e.button === 0 && images[cur]) {
+      const [x, y] = toImg(e), im = images[cur];
+      if (x >= 0 && y >= 0 && x < im.img.width && y < im.img.height) { im.marks.push([Math.round(x), Math.round(y)]); save(im); render(); renderList(); }
+    }
+    drag = null;
+  });
+  cv.addEventListener('contextmenu', e => {
+    e.preventDefault(); const im = images[cur]; if (!im) return;
+    const [x, y] = toImg(e), r = 12 / scale;
+    let best = -1, bd = Infinity;
+    im.marks.forEach(([mx, my], k) => { const d = Math.hypot(mx - x, my - y); if (d < bd) { bd = d; best = k; } });
+    if (best >= 0 && bd <= r) { im.marks.splice(best, 1); save(im); render(); renderList(); }
+  });
+  cv.addEventListener('wheel', e => {
+    e.preventDefault(); const r = cv.getBoundingClientRect();
+    const mx = e.clientX - r.left, my = e.clientY - r.top, k = Math.exp(-e.deltaY * 0.0015);
+    const ns = Math.min(Math.max(scale * k, 0.05), 20);
+    ox = mx - (mx - ox) * ns / scale; oy = my - (my - oy) * ns / scale; scale = ns; render();
+  }, { passive: false });
+
+  function undo() { const im = images[cur]; if (im && im.marks.length) { im.marks.pop(); save(im); render(); renderList(); } }
+  document.getElementById('undo').onclick = undo;
+  document.getElementById('fit').onclick = fit;
+  doneBox.onchange = () => { const im = images[cur]; if (im) { im.done = doneBox.checked; save(im); renderList(); } };
+  window.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' && e.target.type === 'text') return;
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); undo(); }
+    else if (e.key === 'ArrowRight') select(cur + 1);
+    else if (e.key === 'ArrowLeft') select(cur - 1);
+  });
+
+  function download(name, text) {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['﻿' + text], { type: 'text/csv;charset=utf-8' }));
+    a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }
+  const who = () => counterIn.value.trim() || 'isimsiz';
+  const stamp = () => new Date().toISOString().replace(/[:T]/g, '-').slice(0, 16);
+  document.getElementById('sumCsv').onclick = () => {
+    const rows = ['video;N_released;trapped_between_L1_L2;counter;completed;image;exported_at'];
+    images.forEach(im => rows.push([im.video, im.N, im.marks.length, who(), im.done ? 1 : 0, im.name, new Date().toISOString()].join(';')));
+    download(`tutulan_odun_sayimi_${who()}_${stamp()}.csv`, rows.join('\n'));
+  };
+  document.getElementById('ptsCsv').onclick = () => {
+    const rows = ['video;counter;mark_no;x_px;y_px;image'];
+    images.forEach(im => im.marks.forEach(([x, y], k) => rows.push([im.video, who(), k + 1, x, y, im.name].join(';'))));
+    download(`tutulan_odun_koordinatlari_${who()}_${stamp()}.csv`, rows.join('\n'));
+  };
+  window.addEventListener('resize', resize);
+  resize();
+})();
+</script>
+</body>
+</html>

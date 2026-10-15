@@ -39,6 +39,28 @@ are independent of the detector training data (N = 10–200 pieces per run):
   leave-one-run-out does not improve on the a-priori settings.
 * Latency: batch 1, FP32, RTX 4090, including the resize of the 3840 × 2160 frame.
 
+### Physical scale, velocity and flux
+
+The channel is B = 1.2 m wide. The bed-wall junctions give a bed width of 1020–1070 px
+across the frame (the camera is slightly off-centre); wood floats at the surface, about
+1.5 % wider in the image, so the scale is 1.149 mm/px at L1 and 1.118 mm/px at L2
+(relative standard uncertainty 0.9 %, `scripts/calibrate.py`). At L1 the wood surface
+velocity is 0.49–0.51 m/s for discharge code 40 and 0.55–0.59 m/s for code 60; RF-DETR
+and YOLO11m agree within 0.002 m/s. Mean wood flux reaches about 40 pieces/s, with
+1-s peaks of about 50 (`results/physical_summary.csv`).
+
+### Dead-zone model of the original crossing rule
+
+A rule that ignores track centres within ±1 px of the line (width w = 2 px) misses a
+crossing whenever one tracker update falls inside that zone. For updates of uniform phase
+advancing d px each, P(miss) = min(1, w/d); in physical units P = min(1, w s f / v) for
+pixel size s, frame rate f and velocity v. Over 4953 crossings the observed loss is
+45.4 % against 45.7 % predicted. In 99.98 % of the crossings, "an update fell in the zone"
+and "the original rule missed it" coincide. The observed loss follows the model across
+d = 2–40 px (`results/deadzone_model.json`, `figures/fig_deadzone_model.pdf`). A
+higher frame rate or a finer resolution therefore increases the loss: a dead band must
+be replaced by a last-non-zero-side rule, not tuned.
+
 ## Measurement problem
 
 Wooden dowels are released upstream of a permeable spur dike in a laboratory flume and

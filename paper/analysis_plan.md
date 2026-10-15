@@ -61,3 +61,17 @@ Comparison of the detectors: paired Wilcoxon signed-rank test on |C − N|/N ove
 9. **Fair detector comparison.** YOLO11n/s/m retrained on exactly the RF-DETR training
    images with the same square-stretch geometry; RF-DETR retrained with a converging
    schedule; both families also trained on the blocked split.
+10. **Physical scale.** Channel width B = 1.2 m against the bed-wall junctions located
+    every 5 % of the frame width; surface factor k = 1.015 ± 0.015 (rectangular) from
+    the extreme wood box edges; u(s)/s ≈ 0.9 %.
+11. **Velocity and flux at L1.** Surface velocity of each crossing piece from a linear
+    fit of its centre within 200 px of the line; per run: median, IQR, passage duration
+    T90, mean flux 0.9 C / T90 and peak 1-s flux. Inter-method agreement of the
+    velocities.
+12. **Dead-zone model.** P(miss) = min(1, w/d) with w = 2 px and d the centre advance per
+    tracker update at the line, tested per crossing (binned observed loss with 95 %
+    intervals) and per run (predicted vs observed loss); generalised to
+    P = min(1, w s f / v).
+13. **Pending reference for L2.** Manual count of the pieces left between L1 and L2 at
+    the end of each run (`tools/sayac.html`, two independent counters), giving
+    N_L2 = N − trapped and the GUM uncertainty of R.
